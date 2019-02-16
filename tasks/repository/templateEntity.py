@@ -7,7 +7,7 @@ import cv2
 def generate_all_template_gray_ndarray_of_cv2():
     print("开始读取所有模板cv2的BGR对象")
     template_gray_ndarray_of_cv2 = {}
-    for root, dirs, files in os.walk("D:\\omyuji_ico"):
+    for root, dirs, files in os.walk("omyuji_ico"):
         for name in files:
             template_gray_ndarray_of_cv2[name] = cv2.imread(os.path.join(root, name), 0)
     return template_gray_ndarray_of_cv2

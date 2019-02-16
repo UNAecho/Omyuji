@@ -33,14 +33,14 @@ def breakthrough_personal(mode):
     print("开始进行个人突破")
     mouse_click(random.randint(Coordinate.breakthrough_x_left, Coordinate.breakthrough_x_right),
                 random.randint(Coordinate.breakthrough_y_top, Coordinate.breakthrough_y_bottom))
-    time.sleep(0.5)
+    time.sleep(1)
     # 标记当前玩家是否被攻破
     battle_status = False
     # 开始个突大循环，一直到票为0之后才break
     while True:
         print("个突开始，首先读取剩余票数")
         breakthrough_personal_ticket = readContentOfScreen.read_number_of_screen(
-            'D:\\win32Screenshot\\breakthrough_ticket.png',
+            'ScreenshotTemp\\breakthrough_ticket.png',
             Coordinate.breakthrough_personal_ticket_x_left,
             Coordinate.breakthrough_personal_ticket_y_top,
             72, 26)
@@ -62,7 +62,7 @@ def breakthrough_personal(mode):
                         try:
                             print("开始读取剩余突破票数量,当前目标是第" + str(i) + "号玩家")
                             breakthrough_personal_ticket = readContentOfScreen.read_number_of_screen(
-                                'D:\\win32Screenshot\\breakthrough_ticket.png',
+                                'ScreenshotTemp\\breakthrough_ticket.png',
                                 Coordinate.breakthrough_personal_ticket_x_left,
                                 Coordinate.breakthrough_personal_ticket_y_top,
                                 72, 26)
@@ -188,7 +188,7 @@ def breakthrough_union(mode):
                 if check_breakthrough_availabe_corrdinate.__len__() > 0:
                     whether_breakthrough_is_available = False
                 break
-            read_attack_remaining = readContentOfScreen.read_number_of_screen('D:\\win32Screenshot\\union.bmp',
+            read_attack_remaining = readContentOfScreen.read_number_of_screen('ScreenshotTemp\\union.bmp',
                                                                               Coordinate.breakthrough_union_attack_remaining_x_left,
                                                                               Coordinate.breakthrough_union_attack_remaining_y_top, 56, 56)
             if read_attack_remaining.isdigit() is False:
@@ -271,27 +271,14 @@ def breakthrough_union(mode):
 
 
 def check_whether_start():
-    read_screen_text = readContentOfScreen.read_chi_of_screen('D:\\win32Screenshot\\checkstart.bmp',
-                                                              Coordinate.breakthrough_union_check_start_x_left,
-                                                              Coordinate.breakthrough_union_check_start_y_top, 182, 50)
-    time.sleep(2)
-    print("识别是否开启寮突破结果为 ：" + read_screen_text)
-
-    try:
-        if read_screen_text != "" and read_screen_text.index("会 长") >= 0:
-            return False
-        else:
-            return True
-    except:
-        pass
-
+    return not identifyImage.look_for_template_for_a_moment_return_boolean("check_breakthrough_start.png", 2, 0.85)
 
 def read_breakthrough_ticker_remaining(mode):
     print("读取个人突破票数，如果大于25，那么就开干")
 
     time.sleep(1)
     breakthrough_ticket_remaining = readContentOfScreen.read_number_of_screen(
-                  'D:\\win32Screenshot\\breakthrough_ticket.png',
+                  'ScreenshotTemp\\breakthrough_ticket.png',
                   Coordinate.explore_number_of_breakthrough_ticker_x_left,
                   Coordinate.explore_number_of_breakthrough_ticker_y_top, 107, 24)
     if breakthrough_ticket_remaining > 25:

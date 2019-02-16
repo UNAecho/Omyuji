@@ -1,7 +1,7 @@
 import win32gui, win32ui, win32con
 import numpy as np
 from PIL import Image
-# import pytesseract
+
 
 def getScreenshot(filename, x, y, width, height):
     # 根据窗口句柄获取窗口的设备上下文DC（Divice Context）

@@ -1,17 +1,7 @@
-import os
 import time
-import win32api
-import win32gui
-import win32com
-import cv2
 
-from tasks.login import login
-from tasks.logout import logout
-from tasks.equip import getEquip
-from tasks.windowsInfo.windowsInfo import WindowsCoordinateIndex
 from tasks import beginning
 from tasks.tools import hwndInfo
-from tasks.awake import getAwake
 from tasks.tools import windowTools
 
 # 阴阳师位置
