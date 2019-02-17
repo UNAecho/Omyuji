@@ -166,7 +166,7 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
             # 判断御魂数量大于6000
             yuhun_number_exceeded_filename = "yuhun_number_exceeded.png"
             yuhun_number_exceeded_coordinate = identifyImage.identify_find_template_or_not(
-                yuhun_number_exceeded_filename,0.85)
+                yuhun_number_exceeded_filename, 0.85)
             if yuhun_number_exceeded_coordinate.__len__() > 0:
                 mouse_click(yuhun_number_exceeded_coordinate['x'],
                             yuhun_number_exceeded_coordinate['y'])
@@ -188,14 +188,14 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
 
             # Sensitive operation!!!
             # 关buffer
-            bufferTools.switch_off_all_of_buffer()
+            # bufferTools.switch_off_all_of_buffer()
 
             # 开始突破
             breakthrough.breakthrough_personal("yuhun")
 
             # Sensitive operation!!!
             # 开buffer
-            bufferTools.switch_on_buffer("yuhun")
+            # bufferTools.switch_on_buffer("yuhun")
 
         # 接下来判断经过时间，用于进入寮突破
         breakthrough_loop_time = datetime.now()

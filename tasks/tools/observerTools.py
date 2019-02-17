@@ -17,7 +17,7 @@ from tasks.repository import templateEntity
 
 def remaining_of_personal_breakthrough_ticket():
     number = readContentOfScreen.read_number_of_screen(
-                    'ScreenshotTemp\\breakthrough_ticket.png',
+                    'screenshot_temp\\breakthrough_ticket.png',
                     Coordinate.explore_number_of_breakthrough_ticker_x_left,
                     Coordinate.explore_number_of_breakthrough_ticker_y_top,
                     77, 31)

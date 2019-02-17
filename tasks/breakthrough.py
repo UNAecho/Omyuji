@@ -40,7 +40,7 @@ def breakthrough_personal(mode):
     while True:
         print("个突开始，首先读取剩余票数")
         breakthrough_personal_ticket = readContentOfScreen.read_number_of_screen(
-            'ScreenshotTemp\\breakthrough_ticket.png',
+            'screenshot_temp\\breakthrough_ticket.png',
             Coordinate.breakthrough_personal_ticket_x_left,
             Coordinate.breakthrough_personal_ticket_y_top,
             72, 26)
@@ -62,7 +62,7 @@ def breakthrough_personal(mode):
                         try:
                             print("开始读取剩余突破票数量,当前目标是第" + str(i) + "号玩家")
                             breakthrough_personal_ticket = readContentOfScreen.read_number_of_screen(
-                                'ScreenshotTemp\\breakthrough_ticket.png',
+                                'screenshot_temp\\breakthrough_ticket.png',
                                 Coordinate.breakthrough_personal_ticket_x_left,
                                 Coordinate.breakthrough_personal_ticket_y_top,
                                 72, 26)
@@ -188,7 +188,7 @@ def breakthrough_union(mode):
                 if check_breakthrough_availabe_corrdinate.__len__() > 0:
                     whether_breakthrough_is_available = False
                 break
-            read_attack_remaining = readContentOfScreen.read_number_of_screen('ScreenshotTemp\\union.bmp',
+            read_attack_remaining = readContentOfScreen.read_number_of_screen('screenshot_temp\\union.bmp',
                                                                               Coordinate.breakthrough_union_attack_remaining_x_left,
                                                                               Coordinate.breakthrough_union_attack_remaining_y_top, 56, 56)
             if read_attack_remaining.isdigit() is False:
@@ -209,11 +209,11 @@ def breakthrough_union(mode):
                     # 计算失败次数，如果超过3次，那么猜测可能为突破完毕，终止本次突破
                     attack_button_filename = "attack.png"
                     whether_battle = identifyImage.identify_find_template_or_not(
-                        attack_button_filename, 0.85)
+                        attack_button_filename, 0.75)
                     if whether_battle.__len__() > 0:
                         try:
                             identifyImage.identify_template_click(
-                                attack_button_filename, template_cv2_entity[attack_button_filename], 0.95)
+                                attack_button_filename, template_cv2_entity[attack_button_filename], 0.75)
                         except Exception:
                             break
                         battle_result = fight.fight("union_breakthrough_flag.png")
@@ -278,7 +278,7 @@ def read_breakthrough_ticker_remaining(mode):
 
     time.sleep(1)
     breakthrough_ticket_remaining = readContentOfScreen.read_number_of_screen(
-                  'ScreenshotTemp\\breakthrough_ticket.png',
+                  'screenshot_temp\\breakthrough_ticket.png',
                   Coordinate.explore_number_of_breakthrough_ticker_x_left,
                   Coordinate.explore_number_of_breakthrough_ticker_y_top, 107, 24)
     if breakthrough_ticket_remaining > 25:
@@ -329,11 +329,11 @@ def AOP_for_breakthrough(omyuji_hwnd_info):
     if int(personal_breakthrough_ticket) > 28:
         # Sensitive operation!!!
         # 关buffer
-        bufferTools.switch_off_all_of_buffer()
+        # bufferTools.switch_off_all_of_buffer()
 
         print("突破票大于28张，开工了，个人突破")
         breakthrough_personal("yuhun")
 
         # Sensitive operation!!!
         # 开buffer
-        bufferTools.switch_on_buffer("yuhun")
+        # bufferTools.switch_on_buffer("yuhun")

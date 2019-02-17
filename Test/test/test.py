@@ -8,7 +8,7 @@ from tasks.tools.pressBattleButton import choose_floor_and_start_battle
 from tasks.tools.operation import mouse_click, key_input
 from tasks.tools import windowTools
 from tasks import breakthrough
-from schedule_yys import test
+from schedule_omyuji import test
 
 # while True:
 #     global a

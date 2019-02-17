@@ -9,11 +9,12 @@ yys_exe = 'C:\\game\\Onmyoji\\Launch.exe'
 
 omyuji_hwnd_info = hwndInfo.getHwndInfo()
 
+
 # 设定想要执行的任务模式
 # mission = {"yuling": 90, "infinite_breakthrough": "union"}
 # mission = {"infinite_breakthrough": "personal"}
 # mission = {"infinite_breakthrough": "union"}
-mission = {"yuhun": 500 - 0}
+mission = {"yuhun": 500 - 36}
 # mission = {"experience": {"28": 500-30}}
 # 移动窗口
 windowTools.move_window_to_0_0()
