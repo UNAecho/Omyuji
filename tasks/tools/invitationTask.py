@@ -68,7 +68,7 @@ def invite_main_account():
     time.sleep(0.5)
     # 点击邀请
     invite_button_filename = "invite_button.png"
-    identifyImage.identify_template_click(invite_button_filename, template_cv2_entity[invite_button_filename], 0.95)
+    identifyImage.identify_template_click(invite_button_filename, template_cv2_entity[invite_button_filename], 0.8)
 
 
 def invite_main_account_experience(omyuji_hwnd_info, chapter):
