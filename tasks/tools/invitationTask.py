@@ -43,7 +43,7 @@ def invite_main_account():
     print("Start with invite_main_account()")
     # 如果邀请失败了，临时重新打开御魂邀请界面邀请
     checkk_explore_filename = "check_explore.png"
-    checkk_explore = identifyImage.identify_find_template_or_not(checkk_explore_filename, 0.95)
+    checkk_explore = identifyImage.identify_find_template_or_not(checkk_explore_filename, 0.85)
     if checkk_explore.__len__() > 0:
         # 点击御魂
         mouse_click(random.randint(Coordinate.yuhun_x_left, Coordinate.yuhun_x_right),

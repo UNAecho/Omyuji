@@ -40,7 +40,7 @@ def choose_the_latest_chapter(chapter):
         while True:
             # 先找章节模板，找不到就滚动滚轮寻找
             aim_of_chapter_coordinate = identifyImage.identify_find_template_or_not("explore_chapter_%d.png" % chapter,
-                                                                                    0.95)
+                                                                                    0.9)
             if aim_of_chapter_coordinate:
                 # 点击指定章节
                 mouse_click(aim_of_chapter_coordinate['x'], aim_of_chapter_coordinate['y'])

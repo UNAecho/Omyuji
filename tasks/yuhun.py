@@ -60,7 +60,7 @@ def start_yuhun_to_attack_for_multi_player(omyuji_hwnd_info, config):
 def start_choose_floor_of_yuhun_to_attack(omyuji_hwnd_info=None):
     # 选择组队
     common_button_creatteam_file = "common_button_creatteam.png"
-    identifyImage.identify_template_click(common_button_creatteam_file, template_cv2_entity[common_button_creatteam_file], 0.95)
+    identifyImage.identify_template_click(common_button_creatteam_file, template_cv2_entity[common_button_creatteam_file], 0.8)
     time.sleep(1.5)
     # # 开始选择层数
     # team_choose_yuhun_floor_filename = "team_choose_yuhun_floor.png"
@@ -74,7 +74,7 @@ def start_choose_floor_of_yuhun_to_attack(omyuji_hwnd_info=None):
     # time.sleep(1)
     # 点击创建队伍
     create_team_filename = "create_team.png"
-    identifyImage.identify_template_click(create_team_filename, template_cv2_entity[create_team_filename], 0.95)
+    identifyImage.identify_template_click(create_team_filename, template_cv2_entity[create_team_filename], 0.8)
     time.sleep(1)
     # 开始配置魂十-不公开队伍
     choose_10_floor_of_yuhun_private_team()
@@ -88,12 +88,14 @@ def choose_10_floor_of_yuhun_private_team():
     # mouseevent_wheel.scroll_down_to_the_bottom()
     # time.sleep(0.5)
     # 选择十层
-    if not identifyImage.look_for_template_for_a_moment_return_boolean("check_floor_10.png", 3, 0.75):
+    if not identifyImage.look_for_template_for_a_moment_return_boolean("check_floor_10.png", 2, 0.85):
+        print("未选择十层，开始选择十层")
         mouse_move(Coordinate.create_team_choose_floor_of_battle_x_left, Coordinate.create_team_choose_floor_of_battle_y_top)
         mouseevent_wheel.scroll_down_to_the_bottom()
         time.sleep(0.5)
     # 限制60级进入
-    if not identifyImage.look_for_template_for_a_moment_return_boolean("check_allowed_maxlevel.png", 3, 0.75):
+    if not identifyImage.look_for_template_for_a_moment_return_boolean("check_allowed_maxlevel.png", 2, 0.85):
+        print("最大等级不是60级，开始调整等级限制")
         mouse_move(Coordinate.create_team_minimum_lv_x_left, Coordinate.create_team_minimum_lv_y_top)
         mouseevent_wheel.scroll_down_to_the_bottom()
         time.sleep(0.5)
@@ -155,7 +157,7 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
                 # 点击确定
                 common_confirm_button_filename = "common_confirm_button.png"
                 identifyImage.identify_template_click(common_confirm_button_filename,
-                                                       template_cv2_entity[common_confirm_button_filename], 0.95)
+                                                       template_cv2_entity[common_confirm_button_filename], 0.8)
                 # 点了默认邀请之后，默认邀请Flag设置为True
                 default_invite = False
         windowTools.switch_window(list(omyuji_hwnd_info.keys())[0])
@@ -254,7 +256,7 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
             # 看开始战斗按钮是否可用，如有，则进行下一轮循环，直到打满输入次数
             common_team_start_battle_button_filename = "common_team_start_battle_button.png"
             start_battle_button_is_availeable_coordinate = \
-                identifyImage.identify_find_template_or_not(common_team_start_battle_button_filename, 0.95)
+                identifyImage.identify_find_template_or_not(common_team_start_battle_button_filename, 0.85)
             if start_battle_button_is_availeable_coordinate.__len__() > 0:
                 print("邀请成功，退出invite_main_account_for_yuhun()")
                 # 点击开始战斗

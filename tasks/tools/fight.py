@@ -84,7 +84,7 @@ def fight(template_filename=None):
                     # 点击确定
                     common_confirm_button_filename = "common_confirm_button.png"
                     identifyImage.identify_template_click(common_confirm_button_filename,
-                                                          template_cv2_entity[common_confirm_button_filename], 0.95)
+                                                          template_cv2_entity[common_confirm_button_filename], 0.85)
                     break
                 # 判断御魂数量大于6000
                 yuhun_number_exceeded_filename = "yuhun_number_exceeded.png"
@@ -173,7 +173,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
                             Coordinate.experience_1_member_x_right,
                             Coordinate.experience_1_member_y_bottom,
                          )
-    level_max_flag = identifyImage.identify_find_template_or_not("full_level.png", 0.95, custom_1_coordinate)
+    level_max_flag = identifyImage.identify_find_template_or_not("full_level.png", 0.85, custom_1_coordinate)
     if level_max_flag:
         level_max_flag_of_main_1 = True
     custom_2_coordinate = (
@@ -182,7 +182,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
                             Coordinate.experience_2_member_x_right,
                             Coordinate.experience_2_member_y_bottom,
                          )
-    level_max_flag = identifyImage.identify_find_template_or_not("full_level.png", 0.95, custom_2_coordinate)
+    level_max_flag = identifyImage.identify_find_template_or_not("full_level.png", 0.85, custom_2_coordinate)
     if level_max_flag:
         level_max_flag_of_main_2 = True
     custom_3_coordinate = (
@@ -191,7 +191,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
                             Coordinate.experience_3_member_x_right,
                             Coordinate.experience_3_member_y_bottom,
                          )
-    level_max_flag = identifyImage.identify_find_template_or_not("full_level.png", 0.95, custom_3_coordinate)
+    level_max_flag = identifyImage.identify_find_template_or_not("full_level.png", 0.85, custom_3_coordinate)
     if level_max_flag:
         level_max_flag_of_main_3 = True
     # 如果有式神满级，点击至更换式神界面
