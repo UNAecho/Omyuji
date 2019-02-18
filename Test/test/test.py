@@ -1,14 +1,4 @@
-import random
-import time
 from datetime import datetime
-from PIL import Image
-from tasks.repository.GameCoordinateIndex import Coordinate
-from tasks.tools.fight import fight
-from tasks.tools.pressBattleButton import choose_floor_and_start_battle
-from tasks.tools.operation import mouse_click, key_input
-from tasks.tools import windowTools
-from tasks import breakthrough
-from schedule_omyuji import test
 
 # while True:
 #     global a
@@ -20,3 +10,6 @@ from schedule_omyuji import test
 # breakthrough.infinite_breakthrough_loop("")
 
 # Image.open("C:\\Users\yad\Desktop\\20181231150101.png")
+
+a = datetime.now().strftime('%Y%m%d%H%M%S')
+print(a)
