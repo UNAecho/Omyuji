@@ -71,7 +71,7 @@ def fight(template_filename=None):
                 print("已识别出进入战斗前模板：" + template_filename + " fight()方法结束")
                 break
             # 超过一定尝试次数，开始特殊状态判断
-            if try_count >= 10:
+            if try_count >= 5:
                 # 判断是否有默认组队
                 checkbox_need_to_click_filename = "checkbox_need_to_click.png"
                 checkbox_need_to_click_coordinate = identifyImage. \
@@ -93,6 +93,9 @@ def fight(template_filename=None):
                 if yuhun_number_exceeded_coordinate.__len__() > 0:
                     mouse_click(yuhun_number_exceeded_coordinate['x'],
                                 yuhun_number_exceeded_coordinate['y'])
+                    # 点击完超6000提醒后还要点击一下无影响位置，用于退出战斗
+                    time.sleep(0.3)
+                    mouse_click(random_x, random_y)
                     break
                 # 判断掉线了
                 connecting_filename = "connecting.png"
