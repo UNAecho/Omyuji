@@ -88,19 +88,21 @@ def choose_10_floor_of_yuhun_private_team():
     # mouseevent_wheel.scroll_down_to_the_bottom()
     # time.sleep(0.5)
     # 选择十层
-    mouse_move(Coordinate.create_team_choose_floor_of_battle_x_left, Coordinate.create_team_choose_floor_of_battle_y_top)
-    mouseevent_wheel.scroll_down_to_the_bottom()
-    time.sleep(0.5)
+    if not identifyImage.look_for_template_for_a_moment_return_boolean("check_floor_10.png", 3, 0.75):
+        mouse_move(Coordinate.create_team_choose_floor_of_battle_x_left, Coordinate.create_team_choose_floor_of_battle_y_top)
+        mouseevent_wheel.scroll_down_to_the_bottom()
+        time.sleep(0.5)
     # 限制60级进入
-    mouse_move(Coordinate.create_team_minimum_lv_x_left, Coordinate.create_team_minimum_lv_y_top)
-    mouseevent_wheel.scroll_down_to_the_bottom()
-    time.sleep(0.5)
-    mouse_move(Coordinate.create_team_max_lv_x_left, Coordinate.create_team_max_lv_y_top)
-    mouseevent_wheel.scroll_down_to_the_bottom()
-    time.sleep(0.5)
+    if not identifyImage.look_for_template_for_a_moment_return_boolean("check_allowed_maxlevel.png", 3, 0.75):
+        mouse_move(Coordinate.create_team_minimum_lv_x_left, Coordinate.create_team_minimum_lv_y_top)
+        mouseevent_wheel.scroll_down_to_the_bottom()
+        time.sleep(0.5)
+        mouse_move(Coordinate.create_team_max_lv_x_left, Coordinate.create_team_max_lv_y_top)
+        mouseevent_wheel.scroll_down_to_the_bottom()
+        time.sleep(0.5)
     # 点击创建
     create_button_filename = "create_button.png"
-    identifyImage.identify_template_click(create_button_filename, template_cv2_entity[create_button_filename], 0.95)
+    identifyImage.identify_template_click(create_button_filename, template_cv2_entity[create_button_filename], 0.75)
     time.sleep(1)
 
 
