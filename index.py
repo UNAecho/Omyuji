@@ -14,7 +14,7 @@ omyuji_hwnd_info = hwndInfo.getHwndInfo()
 # mission = {"yuling": 90, "infinite_breakthrough": "union"}
 # mission = {"infinite_breakthrough": "personal"}
 # mission = {"infinite_breakthrough": "union"}
-mission = {"yuhun": 500 - 29}
+mission = {"yuhun": 500 - 0}
 # mission = {"experience": {"28": 500-30}}
 # 移动窗口
 windowTools.move_window_to_0_0()
