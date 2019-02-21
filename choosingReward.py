@@ -15,7 +15,7 @@ def choose_reward_by_time():
 
     # 先找悬赏封印的【封印】二字，返回坐标
     reward_invite_filename = "reward_invite.png"
-    reward_invite_coordinate = identifyImage.identify_find_template_or_not(reward_invite_filename, 0.8)
+    reward_invite_coordinate = identifyImage.identify_find_template_or_not(reward_invite_filename, 0.7)
     if reward_invite_coordinate.__len__() > 0:
 
         reward_refuse_filename = "reward_refuse.png"

@@ -28,7 +28,7 @@ def fight(template_filename=None):
     while True:
         if whether_start_battle_try_count < 25:
             whether_still_fight = identifyImage.identify_find_template_or_not(
-                word_auto_filename, 0.95)
+                word_auto_filename, 0.85)
             if whether_still_fight:
                 # 看到自动图标出现，代表进入了战斗，跳出当前循环开始执行战斗流程
                 break
@@ -40,7 +40,7 @@ def fight(template_filename=None):
             return result
     # ready_button_filename = "ready_button.png"
     # whether_ready_button = identifyImage.identify_find_template_or_not(
-    #     ready_button_filename, template_cv2_entity[ready_button_filename], 0.95)
+    #     ready_button_filename, template_cv2_entity[ready_button_filename], 0.85)
     # if whether_ready_button.__len__() > 0:
     #     print("检测到战斗按钮，点击准备开始战斗")
     #     identifyImage.identify_template_click(
@@ -50,7 +50,7 @@ def fight(template_filename=None):
     print("开始进入战斗")
     while True:
         whether_still_fight = identifyImage.identify_find_template_or_not(
-            word_auto_filename, 0.95)
+            word_auto_filename, 0.85)
 
         if whether_still_fight:
             # 检测为持续战斗就继续等待结束
@@ -129,13 +129,13 @@ def check_battle_result():
     count = 0
     while True:
         fail_result = identifyImage.identify_find_template_or_not(
-            battle_failed_filename, 0.95)
+            battle_failed_filename, 0.85)
         if fail_result.__len__() > 0:
             print("战斗失败")
             mouse_click(random_x, random_y)
             return False
         win_result = identifyImage.identify_find_template_or_not(
-            battle_win_continue_filename, 0.95)
+            battle_win_continue_filename, 0.85)
         if win_result.__len__() > 0:
             print("战斗胜利")
             mouse_click(random_x, random_y)
