@@ -247,17 +247,9 @@ def breakthrough_union(mode):
         print("会长副会真懒，都 "+str(time.localtime().tm_hour)+" 点了还没开寮突")
     # 开始退出寮突破
     # 首先点击个人选项卡，重置当前页面，防止卡在某一个弹出界面上
-    for i in range(3):
-        mouse_click(random.randint(Coordinate.breakthrough_personal_x_left,
-                                   Coordinate.breakthrough_personal_x_right),
-                    random.randint(Coordinate.breakthrough_personal_y_top,
-                                   Coordinate.breakthrough_personal_y_bottom))
-        time.sleep(1)
+    mouse_click(Coordinate.breakthrough_personal_x_left, Coordinate.breakthrough_personal_y_top)
     # 退出突破X键
-    mouse_click(random.randint(Coordinate.breakthrough_logout_x_left,
-                               Coordinate.breakthrough_logout_x_right),
-                random.randint(Coordinate.breakthrough_logout_y_top,
-                               Coordinate.breakthrough_logout_y_bottom))
+    mouse_click(Coordinate.breakthrough_logout_x_left, Coordinate.breakthrough_logout_y_top)
     # 开始执行返回进入寮突破流程之前的界面
     if mode == "yuhun":
         # TODO
