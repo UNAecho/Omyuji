@@ -248,6 +248,7 @@ def breakthrough_union(mode):
     # 开始退出寮突破
     # 首先点击个人选项卡，重置当前页面，防止卡在某一个弹出界面上
     mouse_click(Coordinate.breakthrough_personal_x_left, Coordinate.breakthrough_personal_y_top)
+    time.sleep(0.3)
     # 退出突破X键
     mouse_click(Coordinate.breakthrough_logout_x_left, Coordinate.breakthrough_logout_y_top)
     # 开始执行返回进入寮突破流程之前的界面
