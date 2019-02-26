@@ -329,11 +329,11 @@ def AOP_for_breakthrough(omyuji_hwnd_info):
     if int(personal_breakthrough_ticket) > 28:
         # Sensitive operation!!!
         # 关buffer
-        # bufferTools.switch_off_all_of_buffer()
+        bufferTools.switch_off_all_of_buffer()
 
         print("突破票大于28张，开工了，个人突破")
         breakthrough_personal("yuhun")
 
         # Sensitive operation!!!
         # 开buffer
-        # bufferTools.switch_on_buffer("yuhun")
+        bufferTools.switch_on_buffer("yuhun")

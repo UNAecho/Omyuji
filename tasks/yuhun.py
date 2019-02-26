@@ -192,14 +192,14 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
 
             # Sensitive operation!!!
             # 关buffer
-            # bufferTools.switch_off_all_of_buffer()
+            bufferTools.switch_off_all_of_buffer()
 
             # 开始突破
             breakthrough.breakthrough_personal("yuhun")
 
             # Sensitive operation!!!
             # 开buffer
-            # bufferTools.switch_on_buffer("yuhun")
+            bufferTools.switch_on_buffer("yuhun")
 
         # 接下来判断经过时间，用于进入寮突破
         breakthrough_loop_time = datetime.now()
@@ -211,14 +211,14 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
             if whether_breakthrough_is_available:
                 # Sensitive operation!!!
                 # 关buffer
-                # buffer_tools.switch_off_all_of_buffer()
+                bufferTools.switch_off_all_of_buffer()
 
                 # 开始寮突破
                 whether_breakthrough_is_available = breakthrough.start_to_breakthrough("union", "yuhun")
 
                 # Sensitive operation!!!
                 # 开buffer
-                # buffer_tools.switch_on_buffer("yuhun")
+                bufferTools.switch_on_buffer("yuhun")
 
                 # 记录打完突破的时间点，用于下一次计算时长
                 the_last_breakthrough_union_time = datetime.now()

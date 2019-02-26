@@ -147,3 +147,24 @@ def wait_for_a_moment_and_click_template(template_file_name, waitting_time, thre
             time.sleep(0.5)
             time_sum += 0.5
     return return_result
+
+
+# x,y为鼠标点击坐标,点3次如果无效，返回True表示可能程序执行顺序发生了异常
+def m_c_eye(x, y, template_name=None):
+    for i in range(2):
+        screen_before = np.array(ImageGrab.grab(window_info_tuple))
+        mouse_click(x, y)
+        time.sleep(1)
+        screen_after = np.array(ImageGrab.grab(window_info_tuple))
+        # 先是RGB转换为BGR，然后再转为灰度图
+        gray_img_before = opencv.cvtColor(opencv.cvtColor(screen_before, opencv.COLOR_RGB2BGR), opencv.COLOR_BGR2GRAY)
+        gray_img_after = opencv.cvtColor(opencv.cvtColor(screen_after, opencv.COLOR_RGB2BGR), opencv.COLOR_BGR2GRAY)
+
+        match_res = opencv.matchTemplate(gray_img_before, gray_img_after, opencv.TM_CCOEFF_NORMED)
+
+        loc = np.where(match_res >= 1)
+        for pt in zip(*loc[::-1]):
+            if pt:
+                print("点击" + str(template_name) + "没反应，重点")
+                continue
+        return

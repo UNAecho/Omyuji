@@ -21,12 +21,12 @@ def choose_reward_by_time():
         reward_refuse_filename = "reward_refuse.png"
         reward_refuse_coordinate = identifyImage.identify_find_template_or_not(reward_refuse_filename, 0.85)
         if reward_refuse_coordinate.__len__() > 0:
-            # 如果过了18点，开始接受悬赏，由于接受按钮在拒绝按钮上面，为了优化性能，将拒绝按钮y轴坐标减去86代表接受按钮坐标
-            if time.localtime().tm_hour > 17:
+            # 如果过了18点，或者当天是周末，就接受悬赏，由于接受按钮在拒绝按钮上面，为了优化性能，将拒绝按钮y轴坐标减去86代表接受按钮坐标
+            if time.localtime().tm_hour > 17 or datetime.datetime.now().weekday() > 4:
                 mouse_click(reward_refuse_coordinate['x'], reward_refuse_coordinate['y'] - 86)
                 print("晚上6点以后开始接客啦！")
             else:
-                mouse_click(reward_refuse_coordinate['x'], reward_refuse_coordinate['y'])
+                mouse_click(reward_refuse_coordinate['x'] - 58, reward_refuse_coordinate['y'] - 327)
                 print("有人邀请，立即拒绝，没有犹豫")
 
 

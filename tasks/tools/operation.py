@@ -1,7 +1,6 @@
 import win32api
 import win32con
 import time
-from ctypes import *
 from tasks.tools.keycode import keycode
 
 # 鼠标点击操作
