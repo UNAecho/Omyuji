@@ -121,6 +121,6 @@ def accept_invite_from_captain(omyuji_hwnd_info):
 # 邀请出现失败时，重新尝试走一遍探索邀请流程
 def catch_invite_main_account_error(chapter):
     # 点2次是因为第一次有邀请界面，点X会首先退出邀请界面
-    identifyImage.look_for_template_to_click("breakthrough__union_close.png", 1, 0.75)
-    identifyImage.look_for_template_to_click("breakthrough__union_close.png", 1, 0.75)
+    identifyImage.look_for_template_to_click("breakthrough_union_close.png", 1, 0.75)
+    identifyImage.look_for_template_to_click("breakthrough_union_close.png", 1, 0.75)
     experience.choose_the_latest_chapter(chapter)
