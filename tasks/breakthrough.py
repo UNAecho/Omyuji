@@ -8,7 +8,7 @@ from tasks.repository import templateEntity
 from tasks.repository.GameCoordinateIndex import Coordinate
 from tasks.tools import fight
 from tasks.tools import bufferTools
-from tasks.tools import identifyImage
+from tasks.tools import identifyImg
 from tasks.tools import readContentOfScreen
 from tasks.tools import windowTools
 from tasks.tools.operation import mouse_click, mouse_move
@@ -83,11 +83,11 @@ def breakthrough_personal(mode):
                                     mouse_click(breakthrough_personal_info['x'], breakthrough_personal_info['y'])
                                     time.sleep(1)
                                     attack_button_filename = "attack.png"
-                                    whether_battle = identifyImage.identify_find_template_or_not(
+                                    whether_battle = identifyImg.identify_find_template_or_not(
                                         attack_button_filename, 0.85)
                                     if whether_battle.__len__() > 0:
                                         try:
-                                            identifyImage.identify_template_click(
+                                            identifyImg.identify_template_click(
                                                 attack_button_filename, template_cv2_entity[attack_button_filename], 0.85)
                                         except Exception:
                                             break
@@ -147,7 +147,7 @@ def breakthrough_personal(mode):
                                        Coordinate.breakthrough_personal_y_bottom))
             time.sleep(1.5)
         # 退出突破X键
-        identifyImage.look_for_template_to_click("breakthrough_union_close.png", 0.5, 0, 0)
+        identifyImg.look_for_template_to_click("breakthrough_union_close.png", 0.5, 0, 0)
         return
     elif mode == "yuling":
         yuling.start_choose_yuling_to_attack()
@@ -182,7 +182,7 @@ def breakthrough_union(mode):
                 print("点了2次发现没弹出战斗按钮，推测该人物已被攻破，开始判断是否整个寮突都打完了")
                 # 判断寮突破是否被100%攻破了，如是，返回False（表示不可以再打了）
                 check_breakthrough_availabe_filename = "check_breakthrough_availabe.png"
-                check_breakthrough_availabe_corrdinate = identifyImage.identify_find_template_or_not(
+                check_breakthrough_availabe_corrdinate = identifyImg.identify_find_template_or_not(
                     check_breakthrough_availabe_filename, 0.85
                 )
                 if check_breakthrough_availabe_corrdinate.__len__() > 0:
@@ -200,7 +200,7 @@ def breakthrough_union(mode):
                     # 勋章ico，如果找到了则点击
                     medal_filename = "medal.png"
                     try:
-                        identifyImage.identify_template_click(medal_filename, template_cv2_entity[medal_filename], 0.75)
+                        identifyImg.identify_template_click(medal_filename, template_cv2_entity[medal_filename], 0.75)
                     except Exception as e:
                         print("error! errormessage is : " + str(e))
                         break
@@ -208,11 +208,11 @@ def breakthrough_union(mode):
                     # 点击勋章之后如果没有弹出进攻，说明已攻破。
                     # 计算失败次数，如果超过3次，那么猜测可能为突破完毕，终止本次突破
                     attack_button_filename = "attack.png"
-                    whether_battle = identifyImage.identify_find_template_or_not(
+                    whether_battle = identifyImg.identify_find_template_or_not(
                         attack_button_filename, 0.75)
                     if whether_battle.__len__() > 0:
                         try:
-                            identifyImage.identify_template_click(
+                            identifyImg.identify_template_click(
                                 attack_button_filename, template_cv2_entity[attack_button_filename], 0.75)
                         except Exception:
                             break
@@ -230,7 +230,7 @@ def breakthrough_union(mode):
                     # 勋章ico，打人失败两次后，将鼠标移动到任意一个勋章位置，为了使接下来的滚轮操作生效。
                     # 不然如果鼠标处于界面外，滚轮动作将无法完成
                     medal_filename = "medal.png"
-                    medal_file_coordinateindex = identifyImage.identify_find_template_or_not(
+                    medal_file_coordinateindex = identifyImg.identify_find_template_or_not(
                         medal_filename, 0.75)
                     if medal_file_coordinateindex.__len__() > 0:
                         mouse_move(medal_file_coordinateindex['x'],
@@ -264,7 +264,7 @@ def breakthrough_union(mode):
 
 
 def check_whether_start():
-    return not identifyImage.look_for_template_for_a_moment_return_boolean("check_breakthrough_start.png", 2, 0.85)
+    return not identifyImg.look_for_template_for_a_moment_return_boolean("check_breakthrough_start.png", 2, 0.85)
 
 def read_breakthrough_ticker_remaining(mode):
     print("读取个人突破票数，如果大于25，那么就开干")

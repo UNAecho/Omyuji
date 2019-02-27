@@ -7,7 +7,7 @@ from PIL import Image
 
 from tasks.repository.GameCoordinateIndex import Coordinate
 from tasks.tools.operation import mouse_click, mouse_move,key_input
-from tasks.tools import identifyImage
+from tasks.tools import identifyImg
 from tasks.tools import fight
 from tasks import yuling
 from tasks.tools import windowTools

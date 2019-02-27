@@ -4,7 +4,7 @@ import win32gui
 
 from tasks.repository import templateEntity
 from tasks.repository.GameCoordinateIndex import Coordinate
-from tasks.tools import identifyImage
+from tasks.tools import identifyImg
 from tasks.tools.operation import mouse_click
 
 # 模板路径，key为模板文件名，value为图片对应的cv2使用的BGR转化为GRAY数组，注意转换前是BGR不是RGB。type为ndarray。
@@ -27,7 +27,7 @@ def fight(template_filename=None):
     word_auto_filename = "word_auto.png"
     while True:
         if whether_start_battle_try_count < 25:
-            whether_still_fight = identifyImage.identify_find_template_or_not(
+            whether_still_fight = identifyImg.identify_find_template_or_not(
                 word_auto_filename, 0.85)
             if whether_still_fight:
                 # 看到自动图标出现，代表进入了战斗，跳出当前循环开始执行战斗流程
@@ -49,7 +49,7 @@ def fight(template_filename=None):
     #     print("没检测到准备按钮，推测阵容锁定，直接进入战斗")
     print("开始进入战斗")
     while True:
-        whether_still_fight = identifyImage.identify_find_template_or_not(
+        whether_still_fight = identifyImg.identify_find_template_or_not(
             word_auto_filename, 0.85)
 
         if whether_still_fight:
@@ -64,7 +64,7 @@ def fight(template_filename=None):
         # 尝试点击退出次数，如果超数一定数额，判定是不是要求默认邀请，或者御魂超数量6000了
         try_count = 0
         while True:
-            out_of_fight_flag_coordinate = identifyImage.identify_find_template_or_not(
+            out_of_fight_flag_coordinate = identifyImg.identify_find_template_or_not(
                 template_filename, 0.75)
             print("等待模板"+ template_filename + "的出现")
             if out_of_fight_flag_coordinate.__len__() > 0:
@@ -74,7 +74,7 @@ def fight(template_filename=None):
             if try_count >= 5:
                 # 判断是否有默认组队
                 checkbox_need_to_click_filename = "checkbox_need_to_click.png"
-                checkbox_need_to_click_coordinate = identifyImage. \
+                checkbox_need_to_click_coordinate = identifyImg. \
                     identify_find_template_or_not(
                     checkbox_need_to_click_filename, 0.85)
                 if checkbox_need_to_click_coordinate.__len__() > 0:
@@ -83,12 +83,12 @@ def fight(template_filename=None):
                                 checkbox_need_to_click_coordinate['y'])
                     # 点击确定
                     common_confirm_button_filename = "common_confirm_button.png"
-                    identifyImage.identify_template_click(common_confirm_button_filename,
-                                                          template_cv2_entity[common_confirm_button_filename], 0.85)
+                    identifyImg.identify_template_click(common_confirm_button_filename,
+                                                        template_cv2_entity[common_confirm_button_filename], 0.85)
                     break
                 # 判断御魂数量大于6000
                 yuhun_number_exceeded_filename = "yuhun_number_exceeded.png"
-                yuhun_number_exceeded_coordinate = identifyImage.identify_find_template_or_not(
+                yuhun_number_exceeded_coordinate = identifyImg.identify_find_template_or_not(
                     yuhun_number_exceeded_filename, 0.85)
                 if yuhun_number_exceeded_coordinate.__len__() > 0:
                     mouse_click(yuhun_number_exceeded_coordinate['x'],
@@ -99,13 +99,13 @@ def fight(template_filename=None):
                     break
                 # 判断掉线了
                 connecting_filename = "connecting.png"
-                connecting_coordinate = identifyImage.identify_find_template_or_not(
+                connecting_coordinate = identifyImg.identify_find_template_or_not(
                     connecting_filename, 0.85)
                 if connecting_coordinate.__len__() > 0:
                     while True:
                         print("掉线了！3秒后继续判断连接状态")
                         time.sleep(3)
-                        still_connecting_coordinate = identifyImage.identify_find_template_or_not(
+                        still_connecting_coordinate = identifyImg.identify_find_template_or_not(
                             connecting_filename, 0.85)
                         if still_connecting_coordinate.__len__() > 0:
                             print("还没连接上，等待中")
@@ -128,13 +128,13 @@ def check_battle_result():
     # 如果超过10秒还在判断，证明程序已经误点出去，默认战斗成功
     count = 0
     while True:
-        fail_result = identifyImage.identify_find_template_or_not(
+        fail_result = identifyImg.identify_find_template_or_not(
             battle_failed_filename, 0.85)
         if fail_result.__len__() > 0:
             print("战斗失败")
             mouse_click(random_x, random_y)
             return False
-        win_result = identifyImage.identify_find_template_or_not(
+        win_result = identifyImg.identify_find_template_or_not(
             battle_win_continue_filename, 0.85)
         if win_result.__len__() > 0:
             print("战斗胜利")
@@ -151,7 +151,7 @@ def check_battle_result():
 
 def fight_for_experience(omyuji_hwnd_info,template_filename=None):
     battle_result = False
-    whether_battle_start = identifyImage.look_for_template_for_a_moment_return_boolean("common_exit_battle.png", 15, 0.85)
+    whether_battle_start = identifyImg.look_for_template_for_a_moment_return_boolean("common_exit_battle.png", 15, 0.85)
     if not whether_battle_start:
         print("fight_for_experience()判断未进入战斗，返回战斗失败退出方法")
         return battle_result
@@ -173,7 +173,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
                             Coordinate.experience_1_member_x_right,
                             Coordinate.experience_1_member_y_bottom,
                          )
-    level_max_flag = identifyImage.identify_find_template_or_not("full_level.png", 0.85, custom_1_coordinate)
+    level_max_flag = identifyImg.identify_find_template_or_not("full_level.png", 0.85, custom_1_coordinate)
     if level_max_flag:
         level_max_flag_of_main_1 = True
     custom_2_coordinate = (
@@ -182,7 +182,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
                             Coordinate.experience_2_member_x_right,
                             Coordinate.experience_2_member_y_bottom,
                          )
-    level_max_flag = identifyImage.identify_find_template_or_not("full_level.png", 0.85, custom_2_coordinate)
+    level_max_flag = identifyImg.identify_find_template_or_not("full_level.png", 0.85, custom_2_coordinate)
     if level_max_flag:
         level_max_flag_of_main_2 = True
     custom_3_coordinate = (
@@ -191,7 +191,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
                             Coordinate.experience_3_member_x_right,
                             Coordinate.experience_3_member_y_bottom,
                          )
-    level_max_flag = identifyImage.identify_find_template_or_not("full_level.png", 0.85, custom_3_coordinate)
+    level_max_flag = identifyImg.identify_find_template_or_not("full_level.png", 0.85, custom_3_coordinate)
     if level_max_flag:
         level_max_flag_of_main_3 = True
     # 如果有式神满级，点击至更换式神界面
@@ -202,5 +202,5 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
 
 def change_the_level_max_hellspawn():
     mouse_click(random_x, random_y)
-    identifyImage.wait_for_a_moment_and_click_template("common_rare_button.png", 5, 0.85)
-    identifyImage.wait_for_a_moment_and_click_template("common_rare_N.png", 5, 0.85)
+    identifyImg.wait_for_a_moment_and_click_template("common_rare_button.png", 5, 0.85)
+    identifyImg.wait_for_a_moment_and_click_template("common_rare_N.png", 5, 0.85)

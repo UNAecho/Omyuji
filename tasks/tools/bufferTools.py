@@ -7,7 +7,7 @@ from tasks import yuling
 from tasks.repository import templateEntity
 from tasks.repository.GameCoordinateIndex import Coordinate
 from tasks.tools import fight
-from tasks.tools import identifyImage
+from tasks.tools import identifyImg
 from tasks.tools import readContentOfScreen
 from tasks.tools import windowTools
 from tasks.tools.operation import mouse_click, mouse_move
@@ -21,10 +21,10 @@ def switch_on_buffer(type):
     while True:
         print("switch_on_buffer()尝试寻找加成灯笼图标")
         # 如果看到有寮突的关闭按键，点击关闭后再找灯笼
-        identifyImage.look_for_template_to_click("breakthrough_union_close.png", 0.8, 0, 0)
+        identifyImg.look_for_template_to_click("breakthrough_union_close.png", 0.8, 0, 0)
         # 点击加成按钮
         buffer_button_explore_filename = "buffer_button_explore.png"
-        buffer_button_coordinate = identifyImage.identify_find_template_or_not(buffer_button_explore_filename, 0.85)
+        buffer_button_coordinate = identifyImg.identify_find_template_or_not(buffer_button_explore_filename, 0.85)
         if buffer_button_coordinate.__len__() > 0:
             # 如果找到加成灯笼的坐标，点击之后检查觉醒图标是否出现
             mouse_click(buffer_button_coordinate['x'], buffer_button_coordinate['y'])
@@ -35,7 +35,7 @@ def switch_on_buffer(type):
     # 选择要点击的buffer
     if type == "yuhun":
         yuhun_buffer_filename = "yuhun_buffer.png"
-        yuhun_buffer_button_coordinate = identifyImage.identify_find_template_or_not(yuhun_buffer_filename, 0.85)
+        yuhun_buffer_button_coordinate = identifyImg.identify_find_template_or_not(yuhun_buffer_filename, 0.85)
         time.sleep(0.8)
         if yuhun_buffer_button_coordinate.__len__() > 0:
             # 在坐标后面加上数字修正是为了点击buffer按钮，模板返回的坐标为模板左上角那一点
@@ -43,7 +43,7 @@ def switch_on_buffer(type):
             time.sleep(1)
     elif type == "experience":
         experience_buffer_filename = "experience_buffer.png"
-        experience_buffer_button_coordinate = identifyImage.identify_find_template_or_not(experience_buffer_filename, 0.85)
+        experience_buffer_button_coordinate = identifyImg.identify_find_template_or_not(experience_buffer_filename, 0.85)
         time.sleep(0.8)
         if experience_buffer_button_coordinate.__len__() > 0:
             # +100和+5是为了点击buffer按钮，模板返回的坐标为模板左上角那一点
@@ -62,7 +62,7 @@ def switch_off_all_of_buffer():
         print("尝试寻找加成灯笼图标")
         # 点击加成按钮
         buffer_button_explore_filename = "buffer_button_explore.png"
-        buffer_button_coordinate = identifyImage.identify_find_template_or_not(buffer_button_explore_filename, 0.85)
+        buffer_button_coordinate = identifyImg.identify_find_template_or_not(buffer_button_explore_filename, 0.85)
         if buffer_button_coordinate.__len__() > 0:
             # 如果找到加成灯笼的坐标，点击之后检查觉醒图标是否出现
             mouse_click(buffer_button_coordinate['x'], buffer_button_coordinate['y'])
@@ -79,7 +79,7 @@ def switch_off_all_of_buffer():
     while try_to_identify_count < 50:
         # 检测回数+1
         try_to_identify_count += 1
-        buffer_on_coordinate = identifyImage.identify_find_template_or_not(buffer_on_filename, 0.95)
+        buffer_on_coordinate = identifyImg.identify_find_template_or_not(buffer_on_filename, 0.95)
         time.sleep(0.2)
         if buffer_on_coordinate.__len__() > 0:
             # 在坐标后面加上数字修正是为了点击buffer按钮，模板返回的坐标为模板左上角那一点
@@ -98,7 +98,7 @@ def check_whether_page_of_buffer_is_available():
     time.sleep(0.5)
     # 点击加成灯笼之后，判断觉醒buffer图标是否出现，来判断是否点开了加成页面。如果不出现，则重复点击加成灯笼直至出现
     awakening_buffer_filename = "awakening_buffer.png"
-    buffer_button_coordinate = identifyImage.identify_find_template_or_not(awakening_buffer_filename, 0.85)
+    buffer_button_coordinate = identifyImg.identify_find_template_or_not(awakening_buffer_filename, 0.85)
     if buffer_button_coordinate.__len__() > 0:
         print("检测到觉醒图标，证明加成页面已弹出，返回True")
         return True

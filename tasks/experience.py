@@ -8,7 +8,7 @@ from tasks import yuling
 from tasks.repository import templateEntity
 from tasks.repository.GameCoordinateIndex import Coordinate
 from tasks.tools import fight
-from tasks.tools import identifyImage
+from tasks.tools import identifyImg
 from tasks.tools import readContentOfScreen
 from tasks.tools import windowTools
 from tasks.tools.operation import mouse_click, mouse_move
@@ -33,29 +33,29 @@ def multi_player(omyuji_hwnd_info,config):
 def choose_the_latest_chapter(chapter):
     # 鼠标选择指定章节，鼠标滚轮一直滚到看到指定章节的模板为止，并点击
     print("开始找最新章节，当前试图寻找 %d" % chapter + " 章")
-    chapter_coordinate = identifyImage.identify_find_template_or_not("explore_choose_chapter.png", 0.85)
+    chapter_coordinate = identifyImg.identify_find_template_or_not("explore_choose_chapter.png", 0.85)
     if chapter_coordinate:
         mouse_move(chapter_coordinate['x'], chapter_coordinate['y'])
         time.sleep(1)
         while True:
             # 先找章节模板，找不到就滚动滚轮寻找
-            aim_of_chapter_coordinate = identifyImage.identify_find_template_or_not("explore_chapter_%d.png" % chapter,
-                                                                                    0.9)
+            aim_of_chapter_coordinate = identifyImg.identify_find_template_or_not("explore_chapter_%d.png" % chapter,
+                                                                                  0.9)
             if aim_of_chapter_coordinate:
                 # 点击指定章节
                 mouse_click(aim_of_chapter_coordinate['x'], aim_of_chapter_coordinate['y'])
                 # 等待屏幕移动出现选择难度及组队信息
-                wait_for_explore_button = identifyImage.look_for_template_for_a_moment_return_boolean("common_button_explore.png", 3.5,
-                                                                                                      0.85)
+                wait_for_explore_button = identifyImg.look_for_template_for_a_moment_return_boolean("common_button_explore.png", 3.5,
+                                                                                                    0.85)
                 # 看到屏幕出现等待信息后，判断是否点击了困难标志，否则无法组队
                 if wait_for_explore_button:
-                    hard_status_coordinate = identifyImage.identify_find_template_or_not("experience_hard.png",0.85)
+                    hard_status_coordinate = identifyImg.identify_find_template_or_not("experience_hard.png", 0.85)
                     # 如果看到了困难标志没有点上，点击
                     if hard_status_coordinate:
                         mouse_click(hard_status_coordinate['x'],hard_status_coordinate['y'])
                     # 点击组队，结束本方法
-                    identifyImage.identify_template_click("common_button_creatteam.png",
-                                                          template_cv2_entity["common_button_creatteam.png"], 0.85)
+                    identifyImg.identify_template_click("common_button_creatteam.png",
+                                                        template_cv2_entity["common_button_creatteam.png"], 0.85)
                     break
             # win32con.MOUSEEVENTF_WHEEL代表鼠标中轮，第四个参数正数代表往上轮滚，负数代表往下
             win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, -128)
@@ -91,7 +91,7 @@ def battle_statistics_and_command(omyuji_hwnd_info, config):
 
     # 刷狗粮主流程
     while True:
-        boss_flag = identifyImage.look_for_template_for_a_moment_return_boolean("boss_appear.png", 1, 0.65)
+        boss_flag = identifyImg.look_for_template_for_a_moment_return_boolean("boss_appear.png", 1, 0.65)
         if boss_flag:
-            identifyImage.wait_for_a_moment_and_click_template("boss.png", 5, 0.85)
+            identifyImg.wait_for_a_moment_and_click_template("boss.png", 5, 0.85)
             fight.fight_for_experience(omyuji_hwnd_info)

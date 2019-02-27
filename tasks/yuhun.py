@@ -7,7 +7,7 @@ from datetime import datetime
 from tasks.repository.GameCoordinateIndex import Coordinate
 from tasks.tools.operation import mouse_click
 from tasks.tools.operation import mouse_move
-from tasks.tools import identifyImage
+from tasks.tools import identifyImg
 from tasks.repository import templateEntity
 from tasks.tools import mouseevent_wheel
 from tasks.tools import invitationTask
@@ -60,7 +60,7 @@ def start_yuhun_to_attack_for_multi_player(omyuji_hwnd_info, config):
 def start_choose_floor_of_yuhun_to_attack(omyuji_hwnd_info=None):
     # 选择组队
     common_button_creatteam_file = "common_button_creatteam.png"
-    identifyImage.identify_template_click(common_button_creatteam_file, template_cv2_entity[common_button_creatteam_file], 0.8)
+    identifyImg.identify_template_click(common_button_creatteam_file, template_cv2_entity[common_button_creatteam_file], 0.8)
     time.sleep(1.5)
     # # 开始选择层数
     # team_choose_yuhun_floor_filename = "team_choose_yuhun_floor.png"
@@ -74,7 +74,7 @@ def start_choose_floor_of_yuhun_to_attack(omyuji_hwnd_info=None):
     # time.sleep(1)
     # 点击创建队伍
     create_team_filename = "create_team.png"
-    identifyImage.identify_template_click(create_team_filename, template_cv2_entity[create_team_filename], 0.8)
+    identifyImg.identify_template_click(create_team_filename, template_cv2_entity[create_team_filename], 0.8)
     time.sleep(1)
     # 开始配置魂十-不公开队伍
     choose_10_floor_of_yuhun_private_team()
@@ -88,13 +88,13 @@ def choose_10_floor_of_yuhun_private_team():
     # mouseevent_wheel.scroll_down_to_the_bottom()
     # time.sleep(0.5)
     # 选择十层
-    if not identifyImage.look_for_template_for_a_moment_return_boolean("check_floor_10.png", 2, 0.85):
+    if not identifyImg.look_for_template_for_a_moment_return_boolean("check_floor_10.png", 2, 0.85):
         print("未选择十层，开始选择十层")
         mouse_move(Coordinate.create_team_choose_floor_of_battle_x_left, Coordinate.create_team_choose_floor_of_battle_y_top)
         mouseevent_wheel.scroll_down_to_the_bottom()
         time.sleep(0.5)
     # 限制60级进入
-    if not identifyImage.look_for_template_for_a_moment_return_boolean("check_allowed_maxlevel.png", 2, 0.85):
+    if not identifyImg.look_for_template_for_a_moment_return_boolean("check_allowed_maxlevel.png", 2, 0.85):
         print("最大等级不是60级，开始调整等级限制")
         mouse_move(Coordinate.create_team_minimum_lv_x_left, Coordinate.create_team_minimum_lv_y_top)
         mouseevent_wheel.scroll_down_to_the_bottom()
@@ -104,7 +104,7 @@ def choose_10_floor_of_yuhun_private_team():
         time.sleep(0.5)
     # 点击创建
     create_button_filename = "create_button.png"
-    identifyImage.identify_template_click(create_button_filename, template_cv2_entity[create_button_filename], 0.75)
+    identifyImg.identify_template_click(create_button_filename, template_cv2_entity[create_button_filename], 0.75)
     time.sleep(1)
 
 
@@ -147,7 +147,7 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
             # 开始执行点击默认邀请流程，首先要把首次进入战斗Flag设为False
             first_default_invite = False
             checkbox_need_to_click_filename = "checkbox_need_to_click.png"
-            checkbox_need_to_click_coordinate = identifyImage.\
+            checkbox_need_to_click_coordinate = identifyImg.\
                 identify_find_template_or_not(
                 checkbox_need_to_click_filename,0.85)
             if checkbox_need_to_click_coordinate.__len__() > 0:
@@ -156,8 +156,8 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
                             checkbox_need_to_click_coordinate['y'])
                 # 点击确定
                 common_confirm_button_filename = "common_confirm_button.png"
-                identifyImage.identify_template_click(common_confirm_button_filename,
-                                                       template_cv2_entity[common_confirm_button_filename], 0.8)
+                identifyImg.identify_template_click(common_confirm_button_filename,
+                                                    template_cv2_entity[common_confirm_button_filename], 0.8)
                 # 点了默认邀请之后，默认邀请Flag设置为True
                 default_invite = False
         windowTools.switch_window(list(omyuji_hwnd_info.keys())[0])
@@ -169,19 +169,19 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
             # 为了防止弹出御魂6000超量警告，这里加一个判断点击
             # 判断御魂数量大于6000
             yuhun_number_exceeded_filename = "yuhun_number_exceeded.png"
-            yuhun_number_exceeded_coordinate = identifyImage.identify_find_template_or_not(
+            yuhun_number_exceeded_coordinate = identifyImg.identify_find_template_or_not(
                 yuhun_number_exceeded_filename, 0.85)
             if yuhun_number_exceeded_coordinate.__len__() > 0:
                 mouse_click(yuhun_number_exceeded_coordinate['x'],
                             yuhun_number_exceeded_coordinate['y'])
                 print("大号御魂超数了，赶紧去清了")
             # 如果没见到超量，就正常点击小号邀请
-            check_explore = identifyImage.identify_find_template_or_not(check_explore_filename, 0.75)
+            check_explore = identifyImg.identify_find_template_or_not(check_explore_filename, 0.75)
             if check_explore.__len__() > 0:
                 break
             # 如果意外地弹出去直接进了队，那么离开点击
             leave_the_team_button_filename = "leave_the_team_button.png"
-            leave_the_team_button_coordinate = identifyImage.identify_find_template_or_not(leave_the_team_button_filename, 0.85)
+            leave_the_team_button_coordinate = identifyImg.identify_find_template_or_not(leave_the_team_button_filename, 0.85)
             if leave_the_team_button_coordinate.__len__() > 0:
                 break
             mouse_click(Coordinate.explore_getoutofbattle_x_left, Coordinate.explore_getoutofbattle_y_top)
@@ -229,11 +229,11 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
         accept_xiaohao_invite = "accept_xiaohao_invite.png"
         for i in range(10):
             # 检测小号邀请信息，点击对号
-            xiaohao_invite_coordinate = identifyImage. \
+            xiaohao_invite_coordinate = identifyImg. \
                 identify_find_template_or_not(accept_xiaohao_invite, 0.85)
             if xiaohao_invite_coordinate:
                 # 如果找到默认邀请了，仅点击对号接受邀请
-                if identifyImage.look_for_template_for_a_moment_return_boolean("continuous_invited_flag.png", 3, 0.85):
+                if identifyImg.look_for_template_for_a_moment_return_boolean("continuous_invited_flag.png", 3, 0.85):
                     mouse_click(xiaohao_invite_coordinate['x'] - 170,
                                 xiaohao_invite_coordinate['y'] + 10)
                     print("检测到小号发来的默认邀请，仅点击对号接受本次邀请")
@@ -251,12 +251,12 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
         time.sleep(0.3)
         headportrait_of_main_account_filename = "headportrait_of_main_account.png"
         headportrait_of_main_account_coordinate = \
-            identifyImage.identify_find_template_or_not(headportrait_of_main_account_filename, 0.85)
+            identifyImg.identify_find_template_or_not(headportrait_of_main_account_filename, 0.85)
         if headportrait_of_main_account_coordinate.__len__() > 0:
             # 看开始战斗按钮是否可用，如有，则进行下一轮循环，直到打满输入次数
             common_team_start_battle_button_filename = "common_team_start_battle_button.png"
             start_battle_button_is_availeable_coordinate = \
-                identifyImage.identify_find_template_or_not(common_team_start_battle_button_filename, 0.85)
+                identifyImg.identify_find_template_or_not(common_team_start_battle_button_filename, 0.85)
             if start_battle_button_is_availeable_coordinate.__len__() > 0:
                 print("邀请成功，退出invite_main_account_for_yuhun()")
                 # 点击开始战斗
