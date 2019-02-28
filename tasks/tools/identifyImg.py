@@ -84,22 +84,16 @@ def identify_find_template_or_not(template_file_name, threshold, custom_coordina
 # threshold:阈值，越接近1，匹配度要求越高。
 # x/y：偏移量，用于修正点击位置
 def look_for_template_to_click(template_file_name, threshold, x=None, y=None):
-    try_count = 0
-    while try_count < 10:
-        time.sleep(0.5)
-        identify_template_coordinate = identify_find_template_or_not(template_file_name, threshold)
-        if identify_template_coordinate.__len__() > 0:
-            print("找到模板了，x："+str(identify_template_coordinate['x']) +
-                  "，y："+str(identify_template_coordinate['y']))
-            mouse_click(identify_template_coordinate['x']+x,
-                        identify_template_coordinate['y']+y)
-            break
-        else:
-            try_count += 1
-            print("没找到模板：" + template_file_name +
-                  "当前点击：" + str(try_count) + " 次，再点" + str(10-try_count) + " 次，就不点了")
+    find_template_flag = False
+    identify_template_coordinate = identify_find_template_or_not(template_file_name, threshold)
+    if identify_template_coordinate.__len__() > 0:
+        print("找到模板了，x："+str(identify_template_coordinate['x']) +
+              "，y："+str(identify_template_coordinate['y']))
+        mouse_click(identify_template_coordinate['x']+x,
+                    identify_template_coordinate['y']+y)
+        find_template_flag = True
     time.sleep(0.3)
-    return
+    return find_template_flag
 
 
 # 等待断线重连
@@ -168,3 +162,46 @@ def m_c_eye(x, y, template_name=None):
                 print("点击" + str(template_name) + "没反应，重点")
                 continue
         return
+
+
+# 该方法返回多个模板的坐标
+def multi_template_coordinate(template_file_name, threshold, custom_coordinate=None):
+
+    # 返回找到的坐标值元组，调用方需要根据返回的字典进行拆包，得到坐标
+    result_list = []
+    # 读取cv2所使用的BGR模板
+    template_imread = template_cv2_entity[template_file_name]
+    if custom_coordinate is None:
+        screen = np.array(ImageGrab.grab(window_info_tuple))
+    else:
+        custom_locale = (window_info_tuple[0] + custom_coordinate[0],
+                         window_info_tuple[1] + custom_coordinate[1],
+                         window_info_tuple[2] + custom_coordinate[2],
+                         window_info_tuple[3] + custom_coordinate[3]
+                         )
+        screen = np.array(ImageGrab.grab(custom_locale))
+    img_bgr = opencv.cvtColor(screen, opencv.COLOR_RGB2BGR)
+    gray_img_for_cv2 = opencv.cvtColor(img_bgr, opencv.COLOR_BGR2GRAY)
+
+    match_res = opencv.matchTemplate(gray_img_for_cv2, template_imread, opencv.TM_CCOEFF_NORMED)
+
+    try:
+        loc = np.where(match_res >= threshold)
+        for pt in zip(*loc[::-1]):
+            gps = pt
+            # loc中为匹配处左上角位置，正常会加一点点偏移量以保证点到图片中间
+            coordinates_x = gps[0] + random.randint(5, 10) + window_info_dict['window_x_left']
+            coordinates_y = gps[1] + random.randint(5, 10) + window_info_dict['window_y_top']
+            result_list.append((coordinates_x, coordinates_y))
+    except UnboundLocalError:
+        print("寻找模板出错了，推测为没找到，想要找的模板为： " + template_file_name)
+        result_list = []
+
+    return result_list
+
+
+# 等待网络相应
+def wait_loading():
+    time.sleep(0.3)
+    while identify_find_template_or_not("loading.png", 0.95):
+        time.sleep(0.5)

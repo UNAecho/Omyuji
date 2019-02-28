@@ -118,6 +118,7 @@ def accept_invite_from_captain(omyuji_hwnd_info):
     # 切换队长号继续流程
     windowTools.switch_window(list(omyuji_hwnd_info.keys())[1])
 
+
 # 邀请出现失败时，重新尝试走一遍探索邀请流程
 def catch_invite_main_account_error(chapter):
     # 点2次是因为第一次有邀请界面，点X会首先退出邀请界面
