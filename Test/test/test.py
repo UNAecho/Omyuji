@@ -9,7 +9,6 @@ from datetime import datetime
 # time.sleep(1)
 # breakthrough.infinite_breakthrough_loop("")
 
-# Image.open("C:\\Users\yad\Desktop\\20181231150101.png")
 
-a = datetime.now().strftime('%Y%m%d%H%M%S')
+a = datetime.now().weekday()
 print(a)
