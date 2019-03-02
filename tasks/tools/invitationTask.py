@@ -65,7 +65,7 @@ def invite_main_account():
     if main_account_coordinate.__len__() > 0:
         # 找到头像后往右移动60像素点击，防止点击头像出现玩家信息操作界面
         mouse_click(main_account_coordinate['x'] + 60, main_account_coordinate['y'])
-    time.sleep(0.5)
+    time.sleep(0.3)
     # 点击邀请
     invite_button_filename = "invite_button.png"
     identifyImg.identify_template_click(invite_button_filename, template_cv2_entity[invite_button_filename], 0.8)
@@ -101,10 +101,10 @@ def accept_invite_from_captain(omyuji_hwnd_info):
     for i in range(10):
         # 检测小号邀请信息，点击对号
         xiaohao_invite_coordinate = identifyImg. \
-            identify_find_template_or_not(accept_xiaohao_invite, 0.85)
+            identify_find_template_or_not(accept_xiaohao_invite, 0.8)
         if xiaohao_invite_coordinate:
             # 如果找到默认邀请了，仅点击对号接受邀请
-            if identifyImg.look_for_template_for_a_moment_return_boolean("continuous_invited_flag.png", 3, 0.85):
+            if identifyImg.look_for_template_for_a_moment_return_boolean("continuous_invited_flag.png", 3, 0.8):
                 mouse_click(xiaohao_invite_coordinate['x'] - 170, xiaohao_invite_coordinate['y'] + 10)
                 print("检测到小号发来的默认邀请，仅点击对号接受本次邀请")
                 time.sleep(0.2)
