@@ -26,6 +26,8 @@ def mouse_dclick(x=None,y=None):
 def mouse_move(x,y):
     win32api.SetCursorPos((x, y))
     # windll.user32.SetCursorPos(x, y)
+
+
 # 输入
 def key_input(str):
     for c in str:
@@ -34,13 +36,16 @@ def key_input(str):
         win32api.keybd_event(keycode[c],0,win32con.KEYEVENTF_KEYUP,0)
         time.sleep(0.02)
 
-# 鼠标拖拽
-def mouse_drag(x, y, x2, y2):
+
+# 鼠标拖拽至目标处
+def mouse_drag_to_target(x, y, target_x, target_y):
     mouse_move(x, y)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
     time.sleep(0.2)
-    mw = int(x2 * 65535 / 1920)
-    mh = int(y2 * 65535 / 1080)
-    win32api.mouse_event(win32con.MOUSEEVENTF_ABSOLUTE + win32con.MOUSEEVENTF_MOVE, mw, mh, 0, 0)    
+    # GetSystemMetrics()函数参数为索引，共75个索引，具体可在网上查到
+    # 目前我们仅需要第0索引：当前x轴分辨率；第1索引：当前y轴分辨率
+    mw = int(target_x * 65535 / win32api.GetSystemMetrics(0))
+    mh = int(target_y * 65535 / win32api.GetSystemMetrics(1))
+    win32api.mouse_event(win32con.MOUSEEVENTF_ABSOLUTE + win32con.MOUSEEVENTF_MOVE, mw, mh, 0, 0)
     time.sleep(0.2)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)

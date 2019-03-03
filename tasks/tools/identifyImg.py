@@ -86,6 +86,10 @@ def identify_find_template_or_not(template_file_name, threshold, custom_coordina
 def look_for_template_to_click(template_file_name, threshold, x=None, y=None):
     find_template_flag = False
     identify_template_coordinate = identify_find_template_or_not(template_file_name, threshold)
+    if x is None:
+        x = 0
+    if y is None:
+        y = 0
     if identify_template_coordinate.__len__() > 0:
         print("找到模板了，x："+str(identify_template_coordinate['x']) +
               "，y："+str(identify_template_coordinate['y']))

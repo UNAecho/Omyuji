@@ -2,21 +2,27 @@ import time
 import datetime
 from tasks.tools import identifyImg
 from tasks.tools.operation import mouse_click
+from tasks.tools import shikigamiTools
 
 
 # task_type:当前调用寄养的方法，人物所处的任务环境。比如打魂十的时候调用寄养时，task_type = "yuhun"
 def check_time_and_foster(task_type):
+    # 进入方法时间，目前方法不够精确，所以是否寄养成功，都返回寄养时间，防止寄养失败后，每一次循环都启用一次寄养。
+    foster_time = datetime.datetime.now()
     # 首先检查人物所处位置，如果在探索菜单就先返回主界面
     # 先找下有没有后退的蓝色按钮，不断地按直到没有找到
     if identifyImg.look_for_template_for_a_moment_return_boolean("back_button_blue.png", 2, 0.8):
-        while identifyImg.look_for_template_to_click("back_button_blue.png", 0.8):
+        while identifyImg.look_for_template_for_a_moment_return_boolean("back_button_blue.png", 5, 0.8):
             identifyImg.look_for_template_to_click("back_button_blue.png", 0.8)
+            if identifyImg.look_for_template_for_a_moment_return_boolean("main_menu_yinyangliao.png", 0.5, 0.8):
+                print("检测到退回主界面了，开始点击阴阳寮")
+                break
     # 点击主界面阴阳寮按钮
     identifyImg.look_for_template_to_click("main_menu_yinyangliao.png", 0.8)
     # 点击结界，进入结界界面
     identifyImg.wait_for_a_moment_and_click_template("boundary_button.png", 5, 0.8)
     # 点击式神育成
-    identifyImg.wait_for_a_moment_and_click_template("boundary_index.png", 5, 0.75)
+    identifyImg.wait_for_a_moment_and_click_template("boundary_index.png", 5, 0.8)
     time.sleep(1)
     # 观察一下寄养按钮是否可用
     foster_coordinate = identifyImg.identify_find_template_or_not("boundary_foster_button.png", 0.8)
@@ -35,14 +41,23 @@ def check_time_and_foster(task_type):
         if friend_boundary_available_coordinate.__len__() == 0:
             break
         # 开始挑卡寄养，尽量选择收益高的
-        check_friend_to_foster(friend_boundary_available_coordinate)
+        foster_time = check_friend_to_foster(friend_boundary_available_coordinate)
+
+    # 挂完卡之后，开始退出界面，方法是不断地点击蓝色退后按钮，直至出现阴阳寮主界面
+    while True:
+        identifyImg.wait_for_a_moment_and_click_template("back_button_blue.png", 5, 0.8)
+        if identifyImg.identify_find_template_or_not("boundary_button.png", 0.8):
+            identifyImg.look_for_template_to_click("common_close_button.png", 0.8)
+            break
 
     # 挂完卡之后，开始返回进行中任务
     back_to_mission(task_type)
+    return foster_time
 
 
 def back_to_mission(task_type):
-    pass
+    if task_type == "yuhun":
+        identifyImg.look_for_template_to_click("explore_main_button.png", 0.7)
 
 
 def check_friend_to_foster(friend_boundary_available_coordinate):
@@ -67,9 +82,21 @@ def check_friend_to_foster(friend_boundary_available_coordinate):
     identifyImg.look_for_template_to_click("boundary_entry_other_boundary.png", 0.8)
     # 寻找【友】字的坑位
     if identifyImg.look_for_template_for_a_moment_return_boolean("boundary_entry_other_boundary.png", 8, 0.8):
-        # 如果有坑位，点击【全部】按钮，挑选寄养式神的稀有度
-        identifyImg.look_for_template_to_click("common_rare_button.png", 0.8)
-        # 选择N卡狗粮寄养
-        identifyImg.wait_for_a_moment_and_click_template("common_rare_N.png", 3, 0.8)
-
-
+        # 寻找目标式神，并返回等级的坐标位置
+        shikigami_level_coordinate = shikigamiTools.select_shikigami()
+        # 如果没找到滑块，直接return
+        if shikigami_level_coordinate.__len__() == 0:
+            return
+        # N卡被吃光，直接切回全部，随便选第一个寄养
+        elif shikigami_level_coordinate.__len__() > 0 and shikigami_level_coordinate['x'] == 0:
+            identifyImg.wait_for_a_moment_and_click_template("common_rare_N.png", 3, 0.8)
+            identifyImg.wait_for_a_moment_and_click_template("common_rare_button.png", 3, 0.8)
+            temp_coordinate = identifyImg.identify_find_template_or_not("common_rare_button.png", 0.8)
+            mouse_click(temp_coordinate['x'], temp_coordinate['y'])
+            identifyImg.wait_for_a_moment_and_click_template("common_confirm_button.png", 3, 0.8)
+            return
+        else:
+            # 如果正常返回坐标，开始寄养
+            mouse_click(shikigami_level_coordinate['x'], shikigami_level_coordinate['y'])
+            identifyImg.wait_for_a_moment_and_click_template("common_confirm_button.png", 3, 0.8)
+    return datetime.datetime.now()

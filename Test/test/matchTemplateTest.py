@@ -6,5 +6,5 @@ import time
 import cv2
 from tasks.tools import identifyImg
 
-identifyImg.identify_find_template_or_not("boundary_available_flag.png",0.8)
-
+if identifyImg.identify_find_template_or_not("boundary_available_flag.png",0.8):
+    print(1)
