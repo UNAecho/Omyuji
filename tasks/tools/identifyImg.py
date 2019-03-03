@@ -91,7 +91,7 @@ def look_for_template_to_click(template_file_name, threshold, x=None, y=None):
     if y is None:
         y = 0
     if identify_template_coordinate.__len__() > 0:
-        print("找到模板了，x："+str(identify_template_coordinate['x']) +
+        print("找到模板"+template_file_name+"了，x："+str(identify_template_coordinate['x']) +
               "，y："+str(identify_template_coordinate['y']))
         mouse_click(identify_template_coordinate['x']+x,
                     identify_template_coordinate['y']+y)
@@ -204,8 +204,9 @@ def multi_template_coordinate(template_file_name, threshold, custom_coordinate=N
     return result_list
 
 
-# 等待网络相应
+# 等待网络响应
 def wait_loading():
     time.sleep(0.3)
-    while identify_find_template_or_not("loading.png", 0.95):
+    while identify_find_template_or_not("loading.png", 0.85):
+        print("等待网络响应，0.5秒后再检查")
         time.sleep(0.5)

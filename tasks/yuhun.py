@@ -16,6 +16,7 @@ from tasks.tools import observerTools
 from tasks import breakthrough
 from tasks.tools import windowTools
 from tasks.tools import bufferTools
+from tasks import fosterCare
 
 # 模板路径，key为模板文件名，value为图片对应的cv2使用的BGR转化为GRAY数组，注意转换前是BGR不是RGB。type为ndarray。
 # 使用时，直接以字典取值方式即可
@@ -114,8 +115,11 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
     win_count = 0
     # 寮突破是否可以继续打的Flag，True：可以打，False：不可以继续打了
     whether_breakthrough_is_available = True
-    # 判断收益号是否开始执行个人突破，突破票28张以上就开打
+    # 切换大号开始判断首先要处理的事情，比如寄养、突破
     windowTools.switch_window(list(omyuji_hwnd_info.keys())[0])
+    # 首先去寄养，然后再记下寄养的时间
+    the_last_foster_time = fosterCare.check_time_and_foster("yuhun")
+    # 然后判断收益号是否开始执行个人突破，突破票28张以上就开打
     breakthrough.AOP_for_breakthrough(omyuji_hwnd_info)
 
     # 切回队长小号开始流程
@@ -185,6 +189,21 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
             if leave_the_team_button_coordinate.__len__() > 0:
                 break
             mouse_click(Coordinate.explore_getoutofbattle_x_left, Coordinate.explore_getoutofbattle_y_top)
+
+        # 在接受前，上次寄养是否超过了6小时，如是，则先去寄养
+        if (datetime.now() - the_last_foster_time).seconds > 21600:
+
+            # Sensitive operation!!!
+            # 关buffer
+            bufferTools.switch_off_all_of_buffer()
+
+            # 寄养
+            the_last_foster_time = fosterCare.check_time_and_foster("yuhun")
+
+            # Sensitive operation!!!
+            # 开buffer
+            bufferTools.switch_on_buffer("yuhun")
+
         # 在接受前，判断大号突破票是否大于28张，如是，则先进行突破
         personal_breakthrough_ticket = observerTools.remaining_of_personal_breakthrough_ticket()
         print("当前突破票剩余：" + personal_breakthrough_ticket)
