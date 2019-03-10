@@ -97,6 +97,10 @@ def invite_main_account_experience(omyuji_hwnd_info, chapter):
 def accept_invite_from_captain(omyuji_hwnd_info):
     # 切换大号接受
     windowTools.switch_window(list(omyuji_hwnd_info.keys())[0])
+    # 添加意外处理，防止大号被6000御魂、掉线以及其他异常情况卡在战斗收益画面没有出来
+    if identifyImg.identify_find_template_or_not("money_ico.png",0.85):
+        mouse_click(Coordinate.explore_getoutofbattle_x_left, Coordinate.explore_getoutofbattle_y_top)
+    # 开始接受队长邀请
     accept_xiaohao_invite = "accept_xiaohao_invite.png"
     for i in range(10):
         # 检测小号邀请信息，点击对号
