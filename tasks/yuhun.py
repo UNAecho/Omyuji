@@ -95,7 +95,7 @@ def choose_10_floor_of_yuhun_private_team():
         mouseevent_wheel.scroll_down_to_the_bottom()
         # 滚轮滚到底之后，开始向上滚动寻找魂十
         while not identifyImg.look_for_template_for_a_moment_return_boolean("check_floor_10.png", 2, 0.85):
-            time.sleep(0.7)
+            time.sleep(0.3)
             win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, 32)
         time.sleep(0.5)
     # 限制60级进入
