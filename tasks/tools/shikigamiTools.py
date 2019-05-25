@@ -2,8 +2,14 @@ from tasks.tools import identifyImg
 from tasks.tools.operation import mouse_drag_to_target
 import time
 
+
 # 选择式神，返回式神的等级坐标
 def select_shikigami():
+    prepare_to_find_N_card()
+    find_N_card()
+
+
+def prepare_to_find_N_card():
     # 点击【全部】按钮，挑选式神的稀有度
     if identifyImg.look_for_template_to_click("common_rare_button.png", 0.75):
         print("找到全部按钮，开始点击选择目标稀有度")
@@ -11,6 +17,8 @@ def select_shikigami():
         # 选择N卡狗粮
         identifyImg.wait_for_a_moment_and_click_template("common_rare_N.png", 3, 0.8)
         print("选择N卡狗粮")
+
+def find_N_card():
     # 开始拖拽滑块，直至出现目标
     while True:
         # 首先寻找滑块位置

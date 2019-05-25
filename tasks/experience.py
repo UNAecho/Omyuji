@@ -28,6 +28,34 @@ def multi_player(omyuji_hwnd_info,config):
 
     battle_statistics_and_command(omyuji_hwnd_info, dict(config))
 
+def battle_statistics_and_command(omyuji_hwnd_info, config):
+    # 解析要做的任务
+    for key, value in config.items():
+        # 要打的章节
+        chapter = int(key)
+        # 要刷的次数
+        residue_number = value
+    battle_count = 0
+    win_count = 0
+
+    # 寮突破是否可以继续打的Flag，True：可以打，False：不可以继续打了
+    whether_breakthrough_is_available = True
+    # 判断大号是否开始执行个人突破，突破票28张以上就开打
+    windowTools.switch_window(list(omyuji_hwnd_info.keys())[0])
+    # breakthrough.AOP_for_breakthrough(omyuji_hwnd_info)
+    # 切回队长小号开始流程
+    windowTools.switch_window(list(omyuji_hwnd_info.keys())[1])
+
+    # 开始进入刷狗粮主流程，当前刷28章
+    # 获取队长号窗口焦点
+    win32gui.SetForegroundWindow(list(omyuji_hwnd_info.keys())[1])
+    # 寻找指定章节，直至点击组队开始准备邀请收益号
+    choose_the_latest_chapter(chapter)
+    # 邀请收益号，直至进入刷狗粮界面，开始准备打怪主流程
+    invitationTask.invite_main_account_experience(omyuji_hwnd_info, chapter)
+    # 刷狗粮主流程
+    explore_main(omyuji_hwnd_info)
+
 
 # 寻找指定章节，并点击进入
 def choose_the_latest_chapter(chapter):
@@ -63,35 +91,12 @@ def choose_the_latest_chapter(chapter):
     return
 
 
-def battle_statistics_and_command(omyuji_hwnd_info, config):
-    # 解析要做的任务
-    for key, value in config.items():
-        # 要打的章节
-        chapter = int(key)
-        # 要刷的次数
-        residue_number = value
-    battle_count = 0
-    win_count = 0
-
-    # 寮突破是否可以继续打的Flag，True：可以打，False：不可以继续打了
-    whether_breakthrough_is_available = True
-    # 判断大号是否开始执行个人突破，突破票28张以上就开打
-    windowTools.switch_window(list(omyuji_hwnd_info.keys())[0])
-    # breakthrough.AOP_for_breakthrough(omyuji_hwnd_info)
-    # 切回队长小号开始流程
-    windowTools.switch_window(list(omyuji_hwnd_info.keys())[1])
-
-    # 开始进入刷狗粮主流程，当前刷28章
-    # 获取队长号窗口焦点
-    win32gui.SetForegroundWindow(list(omyuji_hwnd_info.keys())[1])
-    # 寻找指定章节，直至点击组队开始准备邀请收益号
-    choose_the_latest_chapter(chapter)
-    # 邀请收益号，直至进入刷狗粮界面，开始准备打怪主流程
-    invitationTask.invite_main_account_experience(omyuji_hwnd_info, chapter)
-
-    # 刷狗粮主流程
+# 刷狗粮主流程
+def explore_main(omyuji_hwnd_info):
     while True:
         boss_flag = identifyImg.look_for_template_for_a_moment_return_boolean("boss_appear.png", 1, 0.65)
         if boss_flag:
             identifyImg.wait_for_a_moment_and_click_template("boss.png", 5, 0.85)
             fight.fight_for_experience(omyuji_hwnd_info)
+
+

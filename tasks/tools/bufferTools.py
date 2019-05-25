@@ -21,7 +21,7 @@ def switch_on_buffer(type):
     while True:
         print("switch_on_buffer()尝试寻找加成灯笼图标")
         # 如果看到有寮突的关闭按键，点击关闭后再找灯笼
-        identifyImg.look_for_template_to_click("breakthrough_union_close.png", 0.8, 0, 0)
+        identifyImg.look_for_template_to_click("common_close_button.png", 0.8, 0, 0)
         # 点击加成按钮
         buffer_button_explore_filename = "buffer_button_explore.png"
         buffer_button_coordinate = identifyImg.identify_find_template_or_not(buffer_button_explore_filename, 0.85)

@@ -1,6 +1,6 @@
-import win32gui, win32ui, win32con
-import numpy as np
-from PIL import Image
+import win32gui
+import win32ui
+import win32con
 
 
 def getScreenshot(filename, x, y, width, height):
@@ -20,14 +20,3 @@ def getScreenshot(filename, x, y, width, height):
     # 截取从左上角（0，0）长宽为（w，h）的图片
     saveDC.BitBlt((0, 0), (width, height), mfcDC, (x, y), win32con.SRCCOPY)
     saveBitMap.SaveBitmapFile(saveDC, filename)
-
-def getPrint(filename):
-    arr = np.array(Image.open(filename))
-    result = 0
-    total = 0
-    for row in arr:
-        total += len(row)
-        for pixel in row:
-            result += int(pixel[0]) + int(pixel[1]) + int(pixel[2])
-    result = int(result/total)
-    return result

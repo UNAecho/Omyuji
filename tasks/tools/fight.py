@@ -6,6 +6,8 @@ from tasks.repository import templateEntity
 from tasks.repository.GameCoordinateIndex import Coordinate
 from tasks.tools import identifyImg
 from tasks.tools.operation import mouse_click
+from tasks.tools import shikigamiTools
+from tasks.tools import operation
 
 # 模板路径，key为模板文件名，value为图片对应的cv2使用的BGR转化为GRAY数组，注意转换前是BGR不是RGB。type为ndarray。
 # 使用时，直接以字典取值方式即可
@@ -197,10 +199,39 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
     # 如果有式神满级，点击至更换式神界面
     if level_max_flag_of_main_1 or level_max_flag_of_main_2 or level_max_flag_of_main_3:
         # 开始把满级式神更换至1级式神
-        change_the_level_max_hellspawn()
+        print("检测到有式神满级，开始切换1级狗粮")
+        change_the_level_max_hellspawn(level_max_flag_of_main_1,level_max_flag_of_main_2,level_max_flag_of_main_3)
+        # 返回战斗界面
+        identifyImg.wait_for_a_moment_and_click_template("common_exit_battle.png", 3, 0.8)
 
 
-def change_the_level_max_hellspawn():
-    mouse_click(random_x, random_y)
-    identifyImg.wait_for_a_moment_and_click_template("common_rare_button.png", 5, 0.85)
-    identifyImg.wait_for_a_moment_and_click_template("common_rare_N.png", 5, 0.85)
+def change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_main_2, level_max_flag_of_main_3):
+    # 通过加成按钮来点击更换阵容位置
+    change_battle_array_coordinate = identifyImg.identify_find_template_or_not("buffer_button_courtyard.png", 0.8)
+    mouse_click(change_battle_array_coordinate['x'], change_battle_array_coordinate['y'] - 100)
+    # 通过聊天频道按钮来定位更换狗粮位置
+    chat_button_coordinate = identifyImg.identify_find_template_or_not("", 0.8)
+    No1_coordinate = {'x': chat_button_coordinate['x'] + 35, 'y': chat_button_coordinate['y'] + 355}
+    No2_coordinate = {'x': chat_button_coordinate['x'] + 415, 'y': chat_button_coordinate['y'] + 355}
+    No3_coordinate = {'x': chat_button_coordinate['x'] + 806, 'y': chat_button_coordinate['y'] + 355}
+
+    # 打开换狗粮界面
+    shikigamiTools.prepare_to_find_N_card()
+
+    # 循环更换满级的狗粮
+    while level_max_flag_of_main_1 or level_max_flag_of_main_2 or level_max_flag_of_main_3:
+        changed_N_card_coordinate = shikigamiTools.find_N_card()
+        if level_max_flag_of_main_1:
+            operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'], No1_coordinate['x'], No1_coordinate['y'])
+            level_max_flag_of_main_1 = False
+            print("1号更换完毕")
+
+        if level_max_flag_of_main_2:
+            operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'], No2_coordinate['x'], No2_coordinate['y'])
+            level_max_flag_of_main_2 = False
+            print("2号更换完毕")
+
+        if level_max_flag_of_main_3:
+            operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'], No3_coordinate['x'], No3_coordinate['y'])
+            level_max_flag_of_main_3 = False
+            print("3号更换完毕")

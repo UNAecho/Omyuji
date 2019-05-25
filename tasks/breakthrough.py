@@ -147,7 +147,7 @@ def breakthrough_personal(mode):
                                        Coordinate.breakthrough_personal_y_bottom))
             time.sleep(1.5)
         # 退出突破X键
-        identifyImg.look_for_template_to_click("breakthrough_union_close.png", 0.5, 0, 0)
+        identifyImg.look_for_template_to_click("common_close_button.png", 0.5, 0, 0)
         return
     elif mode == "yuling":
         yuling.start_choose_yuling_to_attack()
