@@ -305,7 +305,9 @@ def infinite_breakthrough_loop(type):
         while True:
             try:
                 return_flag = start_to_breakthrough("union", "")
-                # 被100%突破了就不要循环了
+                # 在无限寮突之中插入一次个突，最大收益利用时间。
+                start_to_breakthrough("personal", "")
+                # 如果发现寮被100%突破了就不要循环了
                 if not return_flag:
                     print("寮突100%被攻破，结束无限循环")
                     break
