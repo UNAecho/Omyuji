@@ -151,9 +151,20 @@ def breakthrough_personal(mode):
         return
     elif mode == "yuling":
         yuling.start_choose_yuling_to_attack()
+    elif mode == "infinite_union":
+        # 点击个人突破选项卡，为了在外层使用BackToIndex()方法退出任务
+        for i in range(3):
+            mouse_click(random.randint(Coordinate.breakthrough_personal_x_left,
+                                       Coordinate.breakthrough_personal_x_right),
+                        random.randint(Coordinate.breakthrough_personal_y_top,
+                                       Coordinate.breakthrough_personal_y_bottom))
+        # 退出突破X键
+        identifyImg.look_for_template_to_click("common_close_button.png", 0.5, 0, 0)
+        time.sleep(1)
     else:
-        print("本次breakthrough_personal()循环结束")
+        print("personal_breakthrough()方法的mode参数未定义，继续进行退出流程")
     time.sleep(0.5)
+    print("本次breakthrough_personal()循环结束")
     return
 
 
@@ -301,19 +312,23 @@ def infinite_breakthrough_loop(type):
         print("开始执行无限寮突模式")
         time.sleep(1)
         windowTools.move_window_to_0_0()
-
+        # 无限寮突等待时间
+        wait_time = 30
         while True:
             try:
                 return_flag = start_to_breakthrough("union", "")
+                print("本次无限寮突结束，尝试进行个突来最大化收益")
                 # 在无限寮突之中插入一次个突，最大收益利用时间。
-                start_to_breakthrough("personal", "")
+                start_to_breakthrough("personal", "infinite_union")
+                print("本次个突结束，根据寮突是否被100%攻破来决定下一步做什么")
                 # 如果发现寮被100%突破了就不要循环了
                 if not return_flag:
                     print("寮突100%被攻破，结束无限循环")
                     break
             except Exception:
                 continue
-            time.sleep(60)
+            print("寮突还未完全攻破，等待 %s 秒后继续" % wait_time)
+            time.sleep(wait_time)
 
 
 def AOP_for_breakthrough(omyuji_hwnd_info):
