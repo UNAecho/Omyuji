@@ -1,6 +1,7 @@
 import time
 import datetime
 import schedule
+import  sys
 
 from tasks.repository import templateEntity
 from tasks.tools import identifyImg
@@ -28,6 +29,9 @@ def choose_reward_by_time():
             else:
                 mouse_click(reward_refuse_coordinate['x'] - 58, reward_refuse_coordinate['y'] - 327)
                 print("有人邀请，立即拒绝，没有犹豫")
+    if identifyImg.identify_find_template_or_not("multi_login.png", 0.8):
+        print("重复登陆，终止程序")
+        sys.exit()
 
 
 schedule.every(1).seconds.do(choose_reward_by_time)

@@ -2,6 +2,7 @@ import random
 import time
 import win32api
 import win32con
+import sys
 from tasks.tools import observerTools
 from tasks import yuling
 from tasks.repository import templateEntity
@@ -315,6 +316,9 @@ def infinite_breakthrough_loop(type):
         # 无限寮突等待时间
         wait_time = 30
         while True:
+            if identifyImg.identify_find_template_or_not("multi_login.png", 0.8):
+                print("重复登陆，终止程序")
+                sys.exit()
             try:
                 return_flag = start_to_breakthrough("union", "")
                 print("本次无限寮突结束，尝试进行个突来最大化收益")

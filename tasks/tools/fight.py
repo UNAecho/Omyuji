@@ -1,6 +1,7 @@
 import random
 import time
 import win32gui
+import sys
 
 from tasks.repository import templateEntity
 from tasks.repository.GameCoordinateIndex import Coordinate
@@ -68,7 +69,7 @@ def fight(template_filename=None):
         while True:
             out_of_fight_flag_coordinate = identifyImg.identify_find_template_or_not(
                 template_filename, 0.75)
-            print("等待模板"+ template_filename + "的出现")
+            print("等待模板" + template_filename + "的出现")
             if out_of_fight_flag_coordinate.__len__() > 0:
                 print("已识别出进入战斗前模板：" + template_filename + " fight()方法结束")
                 break
@@ -115,6 +116,9 @@ def fight(template_filename=None):
                         else:
                             print("重连回来了，继续流程，判断战斗是否退出")
                             break
+                if identifyImg.identify_find_template_or_not("multi_login.png", 0.8):
+                    print("重复登陆，终止程序")
+                    sys.exit()
             try_count += 1
             print("没发现出去的迹象，继续点击，尝试次数：" + str(try_count))
             mouse_click(random_x, random_y)
@@ -151,7 +155,7 @@ def check_battle_result():
             return True
 
 
-def fight_for_experience(omyuji_hwnd_info,template_filename=None):
+def fight_for_experience(omyuji_hwnd_info, template_filename=None):
     battle_result = False
     whether_battle_start = identifyImg.look_for_template_for_a_moment_return_boolean("common_exit_battle.png", 15, 0.85)
     if not whether_battle_start:
@@ -170,29 +174,29 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
     win32gui.SetForegroundWindow(list(omyuji_hwnd_info.keys())[0])
     # 开始逐个判断3个位置的式神满级情况
     custom_1_coordinate = (
-                            Coordinate.experience_1_member_x_left,
-                            Coordinate.experience_1_member_y_top,
-                            Coordinate.experience_1_member_x_right,
-                            Coordinate.experience_1_member_y_bottom,
-                         )
+        Coordinate.experience_1_member_x_left,
+        Coordinate.experience_1_member_y_top,
+        Coordinate.experience_1_member_x_right,
+        Coordinate.experience_1_member_y_bottom,
+    )
     level_max_flag = identifyImg.identify_find_template_or_not("full_level.png", 0.85, custom_1_coordinate)
     if level_max_flag:
         level_max_flag_of_main_1 = True
     custom_2_coordinate = (
-                            Coordinate.experience_2_member_x_left,
-                            Coordinate.experience_2_member_y_top,
-                            Coordinate.experience_2_member_x_right,
-                            Coordinate.experience_2_member_y_bottom,
-                         )
+        Coordinate.experience_2_member_x_left,
+        Coordinate.experience_2_member_y_top,
+        Coordinate.experience_2_member_x_right,
+        Coordinate.experience_2_member_y_bottom,
+    )
     level_max_flag = identifyImg.identify_find_template_or_not("full_level.png", 0.85, custom_2_coordinate)
     if level_max_flag:
         level_max_flag_of_main_2 = True
     custom_3_coordinate = (
-                            Coordinate.experience_3_member_x_left,
-                            Coordinate.experience_3_member_y_top,
-                            Coordinate.experience_3_member_x_right,
-                            Coordinate.experience_3_member_y_bottom,
-                         )
+        Coordinate.experience_3_member_x_left,
+        Coordinate.experience_3_member_y_top,
+        Coordinate.experience_3_member_x_right,
+        Coordinate.experience_3_member_y_bottom,
+    )
     level_max_flag = identifyImg.identify_find_template_or_not("full_level.png", 0.85, custom_3_coordinate)
     if level_max_flag:
         level_max_flag_of_main_3 = True
@@ -200,7 +204,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
     if level_max_flag_of_main_1 or level_max_flag_of_main_2 or level_max_flag_of_main_3:
         # 开始把满级式神更换至1级式神
         print("检测到有式神满级，开始切换1级狗粮")
-        change_the_level_max_hellspawn(level_max_flag_of_main_1,level_max_flag_of_main_2,level_max_flag_of_main_3)
+        change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_main_2, level_max_flag_of_main_3)
         # 返回战斗界面
         identifyImg.wait_for_a_moment_and_click_template("common_exit_battle.png", 3, 0.8)
 
@@ -222,16 +226,19 @@ def change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_m
     while level_max_flag_of_main_1 or level_max_flag_of_main_2 or level_max_flag_of_main_3:
         changed_N_card_coordinate = shikigamiTools.find_N_card()
         if level_max_flag_of_main_1:
-            operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'], No1_coordinate['x'], No1_coordinate['y'])
+            operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
+                                           No1_coordinate['x'], No1_coordinate['y'])
             level_max_flag_of_main_1 = False
             print("1号更换完毕")
 
         if level_max_flag_of_main_2:
-            operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'], No2_coordinate['x'], No2_coordinate['y'])
+            operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
+                                           No2_coordinate['x'], No2_coordinate['y'])
             level_max_flag_of_main_2 = False
             print("2号更换完毕")
 
         if level_max_flag_of_main_3:
-            operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'], No3_coordinate['x'], No3_coordinate['y'])
+            operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
+                                           No3_coordinate['x'], No3_coordinate['y'])
             level_max_flag_of_main_3 = False
             print("3号更换完毕")
