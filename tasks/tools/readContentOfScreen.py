@@ -30,9 +30,9 @@ def read_number_of_screen(file_path, screenshot_x, screenshot_y, screenshot_wigh
         print("读取数字出错！错误信息：" + str(e))
         # 输出读取错误的图片，方便人工debug原因
         # 请定期清理文件，不然文件夹体积会越来越大
-        error_image_filepath = 'D:\\errorImage\\' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
-        shutil.copyfile(file_path, error_image_filepath)
-        print("读取出错的图片路径为：" + error_image_filepath+"，请定期清理，防止文件夹越来越大")
+        # error_image_filepath = 'D:\\errorImage\\' + datetime.now().strftime('%Y%m%d%H%M%S') + '.png'
+        # shutil.copyfile(file_path, error_image_filepath)
+        # print("读取出错的图片路径为：" + error_image_filepath+"，请定期清理，防止文件夹越来越大")
         return "0"
 
 
