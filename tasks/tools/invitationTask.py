@@ -77,10 +77,10 @@ def invite_main_account_experience(omyuji_hwnd_info, chapter):
     if not main_account_appeare_flag:
         # 如果出现异常，直接点击X退出到探索主界面，重新选择章节再邀请一次。
         catch_invite_main_account_error(chapter)
-    invite_click_is_done_flag = identifyImg.wait_for_a_moment_and_click_template("invite_click_is_done.png", 2, 0.85)
-    if not invite_click_is_done_flag:
-        # 如果出现异常，直接点击X退出到探索主界面，重新选择章节再邀请一次。
-        catch_invite_main_account_error(chapter)
+    # invite_click_is_done_flag = identifyImg.wait_for_a_moment_and_click_template("invite_click_is_done.png", 2, 0.85)
+    # if not invite_click_is_done_flag:
+    #     # 如果出现异常，直接点击X退出到探索主界面，重新选择章节再邀请一次。
+    #     catch_invite_main_account_error(chapter)
     # 疯狂邀请至大号进来为止
     while True:
         # 点击邀请
@@ -90,6 +90,7 @@ def invite_main_account_experience(omyuji_hwnd_info, chapter):
         # 判断大号是否进入
         success_flag = identifyImg.look_for_template_for_a_moment_return_boolean("experience_move_left.png", 9, 0.85)
         if success_flag:
+            print("end invite_main_account_experience()")
             return
 
 

@@ -158,6 +158,7 @@ def check_battle_result():
 def fight_for_experience(omyuji_hwnd_info, template_filename=None):
     battle_result = False
     whether_battle_start = identifyImg.look_for_template_for_a_moment_return_boolean("common_exit_battle.png", 15, 0.85)
+    # 如果没找到返回按钮，则判断没有进入战斗
     if not whether_battle_start:
         print("fight_for_experience()判断未进入战斗，返回战斗失败退出方法")
         return battle_result
@@ -166,6 +167,7 @@ def fight_for_experience(omyuji_hwnd_info, template_filename=None):
 
 
 def check_level_of_hellspawn(omyuji_hwnd_info):
+    time.sleep(0.5)
     # 定义各个式神满级状态
     level_max_flag_of_main_1 = False
     level_max_flag_of_main_2 = False
@@ -173,6 +175,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
     # 首先更换收益号狗粮
     win32gui.SetForegroundWindow(list(omyuji_hwnd_info.keys())[0])
     # 开始逐个判断3个位置的式神满级情况
+    # 注意，次方法通过截取屏幕对应位置式神的图片来识别【满】字判断哪个位置有式神满级
     custom_1_coordinate = (
         Coordinate.experience_1_member_x_left,
         Coordinate.experience_1_member_y_top,
@@ -203,7 +206,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
     # 如果有式神满级，点击至更换式神界面
     if level_max_flag_of_main_1 or level_max_flag_of_main_2 or level_max_flag_of_main_3:
         # 开始把满级式神更换至1级式神
-        print("检测到有式神满级，开始切换1级狗粮")
+        print("检测到有式神满级，开始切换成1级狗粮")
         change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_main_2, level_max_flag_of_main_3)
         # 返回战斗界面
         identifyImg.wait_for_a_moment_and_click_template("common_exit_battle.png", 3, 0.8)
@@ -211,7 +214,7 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
 
 def change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_main_2, level_max_flag_of_main_3):
     # 通过加成按钮来点击更换阵容位置
-    change_battle_array_coordinate = identifyImg.identify_find_template_or_not("buffer_button_courtyard.png", 0.8)
+    change_battle_array_coordinate = identifyImg.identify_find_template_or_not("buffer_button_explore.png", 0.8)
     mouse_click(change_battle_array_coordinate['x'], change_battle_array_coordinate['y'] - 100)
     # 通过聊天频道按钮来定位更换狗粮位置
     chat_button_coordinate = identifyImg.identify_find_template_or_not("", 0.8)

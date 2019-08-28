@@ -88,15 +88,23 @@ def choose_the_latest_chapter(chapter):
             # win32con.MOUSEEVENTF_WHEEL代表鼠标中轮，第四个参数正数代表往上轮滚，负数代表往下
             win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, -128)
             time.sleep(0.3)
+    print("choose_the_latest_chapter()结束")
     return
 
 
 # 刷狗粮主流程
 def explore_main(omyuji_hwnd_info):
+    print("start explore_main()")
     while True:
-        boss_flag = identifyImg.look_for_template_for_a_moment_return_boolean("boss_appear.png", 1, 0.65)
-        if boss_flag:
+        # 切换队长号
+        win32gui.SetForegroundWindow(list(omyuji_hwnd_info.keys())[1])
+        print("进入点怪界面，先观察有没有BOSS")
+        boss_appear_flag = identifyImg.look_for_template_for_a_moment_return_boolean("boss_appear.png", 1, 0.85)
+        boss_flag = identifyImg.look_for_template_for_a_moment_return_boolean("boss.png", 1, 0.85)
+        if boss_appear_flag or boss_flag:
+            print("出BOSS了，开始打BOSS")
             identifyImg.wait_for_a_moment_and_click_template("boss.png", 5, 0.85)
             fight.fight_for_experience(omyuji_hwnd_info)
 
-
+        identifyImg.look_for_template_to_click("monster.png",0.85)
+        fight.fight_for_experience(omyuji_hwnd_info)
