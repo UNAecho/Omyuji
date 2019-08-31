@@ -72,8 +72,8 @@ def identify_find_template_or_not(template_file_name, threshold, custom_coordina
         for pt in zip(*loc[::-1]):
             gps = pt
         # loc中为匹配处左上角位置，正常会加一点点偏移量以保证点到图片中间
-            result_coordinates['x'] = gps[0] + random.randint(5, 20) + window_info_dict['window_x_left']
-            result_coordinates['y'] = gps[1] + random.randint(5, 20) + window_info_dict['window_y_top']
+            result_coordinates['x'] = gps[0] + window_info_dict['window_x_left']
+            result_coordinates['y'] = gps[1] + window_info_dict['window_y_top']
     except UnboundLocalError:
         print("寻找模板出错了，推测为没找到，想要找的模板为： " + template_file_name)
         result_coordinates = {}

@@ -217,12 +217,13 @@ def change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_m
     change_battle_array_coordinate = identifyImg.identify_find_template_or_not("buffer_button_explore.png", 0.8)
     mouse_click(change_battle_array_coordinate['x'], change_battle_array_coordinate['y'] - 100)
     # 通过聊天频道按钮来定位更换狗粮位置
-    chat_button_coordinate = identifyImg.identify_find_template_or_not("", 0.8)
-    No1_coordinate = {'x': chat_button_coordinate['x'] + 35, 'y': chat_button_coordinate['y'] + 355}
-    No2_coordinate = {'x': chat_button_coordinate['x'] + 415, 'y': chat_button_coordinate['y'] + 355}
-    No3_coordinate = {'x': chat_button_coordinate['x'] + 806, 'y': chat_button_coordinate['y'] + 355}
+    chat_button_coordinate = identifyImg.identify_find_template_or_not("common_button_chat.png", 0.8)
+    print("通过聊天按钮来定位123号狗粮拖动位置，当前聊天按钮坐标："+str(chat_button_coordinate))
+    No1_coordinate = {'x': chat_button_coordinate['x'] + 35, 'y': chat_button_coordinate['y'] + 335}
+    No2_coordinate = {'x': chat_button_coordinate['x'] + 415, 'y': chat_button_coordinate['y'] + 335}
+    No3_coordinate = {'x': chat_button_coordinate['x'] + 806, 'y': chat_button_coordinate['y'] + 335}
 
-    # 打开换狗粮界面
+    # 打开换狗粮界面，只找1级狗粮，此方法不更换狗粮
     shikigamiTools.prepare_to_find_N_card()
 
     # 循环更换满级的狗粮
@@ -230,18 +231,18 @@ def change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_m
         changed_N_card_coordinate = shikigamiTools.find_N_card()
         if level_max_flag_of_main_1:
             operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
-                                           No1_coordinate['x'], No1_coordinate['y'])
+                                           No1_coordinate['x'], No1_coordinate['y'],3)
             level_max_flag_of_main_1 = False
-            print("1号更换完毕")
+            print("1号更换完毕"+str(No1_coordinate))
 
         if level_max_flag_of_main_2:
             operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
-                                           No2_coordinate['x'], No2_coordinate['y'])
+                                           No2_coordinate['x'], No2_coordinate['y'],3)
             level_max_flag_of_main_2 = False
-            print("2号更换完毕")
+            print("2号更换完毕"+str(No2_coordinate))
 
         if level_max_flag_of_main_3:
             operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
-                                           No3_coordinate['x'], No3_coordinate['y'])
+                                           No3_coordinate['x'], No3_coordinate['y'],3)
             level_max_flag_of_main_3 = False
-            print("3号更换完毕")
+            print("3号更换完毕"+str(No3_coordinate))

@@ -11,7 +11,7 @@ def select_shikigami():
 
 def prepare_to_find_N_card():
     # 点击【全部】按钮，挑选式神的稀有度
-    if identifyImg.look_for_template_to_click("common_rare_button.png", 0.75):
+    if identifyImg.wait_for_a_moment_and_click_template("common_rare_button.png", 3,0.75):
         print("找到全部按钮，开始点击选择目标稀有度")
         time.sleep(1.5)
         # 选择N卡狗粮
@@ -31,9 +31,9 @@ def find_N_card():
         x = slider_coordinae['x']
         y = slider_coordinae['y']
         # 每次小幅度平移64个单位
-        mouse_drag_to_target(x, y, x + 32, y)
+        mouse_drag_to_target(x, y, x + 64, y)
         # 直至出现目标才停下
-        shikigami_level_coordinate = identifyImg.identify_find_template_or_not("level_1.png", 0.9)
+        shikigami_level_coordinate = identifyImg.identify_find_template_or_not("level_1.png", 0.8)
         if shikigami_level_coordinate:
             return shikigami_level_coordinate
         levle_max = identifyImg.identify_find_template_or_not("level_max.png", 0.8)
