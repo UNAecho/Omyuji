@@ -44,19 +44,20 @@ def key_input(str):
 # 如果输入了step_count代表此次拖动跨度较大，需要分步挪动鼠标
 def mouse_drag_to_target(x, y, target_x, target_y, step_count=None):
     mouse_move(x, y)
+    print("x=%d,y=%d,tx=%d,ty=%d" %(x,y,target_x,target_y))
     if step_count:
         tmp_x = target_x / step_count
         tmp_y = target_y / step_count
         n = step_count
         while n > 0:
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-            time.sleep(0.3)
+            time.sleep(0.5)
             # GetSystemMetrics()函数参数为索引，共75个索引，具体可在网上查到
             # 目前我们仅需要第0索引：当前x轴分辨率；第1索引：当前y轴分辨率
             mw = int(tmp_x * n * 65535 / win32api.GetSystemMetrics(0))
             mh = int(tmp_y * n * 65535 / win32api.GetSystemMetrics(1))
             win32api.mouse_event(win32con.MOUSEEVENTF_ABSOLUTE + win32con.MOUSEEVENTF_MOVE, mw, mh, 0, 0)
-            time.sleep(0.3)
+            time.sleep(0.5)
             n -= 1
         mw = int(target_x * 65535 / win32api.GetSystemMetrics(0))
         mh = int(target_y * 65535 / win32api.GetSystemMetrics(1))
