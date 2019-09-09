@@ -1,7 +1,7 @@
 import time
 import datetime
 import schedule
-import  sys
+import sys
 
 from tasks.repository import templateEntity
 from tasks.tools import identifyImg
@@ -13,7 +13,6 @@ template_cv2_entity = templateEntity.generate_all_template_gray_ndarray_of_cv2()
 
 
 def choose_reward_by_time():
-
     # 先找悬赏封印的【封印】二字，返回坐标
     reward_invite_filename = "reward_invite.png"
     reward_invite_coordinate = identifyImg.identify_find_template_or_not(reward_invite_filename, 0.7)
@@ -31,6 +30,9 @@ def choose_reward_by_time():
                 print("有人邀请，立即拒绝，没有犹豫")
     if identifyImg.identify_find_template_or_not("multi_login.png", 0.8):
         print("重复登陆，终止程序")
+        sys.exit()
+    elif identifyImg.identify_find_template_or_not("shutdown_menu.png", 0.8):
+        print("要休眠了，停止程序")
         sys.exit()
 
 
