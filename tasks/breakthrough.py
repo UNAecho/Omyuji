@@ -13,6 +13,7 @@ from tasks.tools import identifyImg
 from tasks.tools import readContentOfScreen
 from tasks.tools import windowTools
 from tasks.tools.operation import mouse_click, mouse_move
+from tasks.tools import OsUtils
 
 # 模板路径，key为模板文件名，value为图片对应的cv2使用的BGR转化为GRAY数组，注意转换前是BGR不是RGB。type为ndarray。
 # 使用时，直接以字典取值方式即可
@@ -333,6 +334,7 @@ def infinite_breakthrough_loop(type):
                 continue
             print("寮突还未完全攻破，等待 %s 秒后继续" % wait_time)
             time.sleep(wait_time)
+        OsUtils.shutdown_computer("sleep")
 
 
 def AOP_for_breakthrough(omyuji_hwnd_info):

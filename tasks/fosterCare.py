@@ -117,3 +117,5 @@ def back_to_mission(task_type):
             break
     if task_type == "yuhun":
         identifyImg.look_for_template_to_click("explore_main_button.png", 0.7)
+    elif task_type == "infinite_breakthrough":
+        identifyImg.look_for_template_to_click("explore_main_button.png", 0.7)
