@@ -319,7 +319,7 @@ def infinite_breakthrough_loop(type):
         while True:
             if identifyImg.identify_find_template_or_not("multi_login.png", 0.8):
                 print("重复登陆，终止程序")
-                sys.exit()
+                break
             try:
                 return_flag = start_to_breakthrough("union", "")
                 print("本次无限寮突结束，尝试进行个突来最大化收益")

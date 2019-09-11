@@ -243,6 +243,6 @@ def change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_m
 
         if level_max_flag_of_main_3:
             operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
-                                           No3_coordinate['x'], No3_coordinate['y'],3)
+                                           No3_coordinate['x'], No3_coordinate['y'],5)
             level_max_flag_of_main_3 = False
             print("3号更换完毕"+str(No3_coordinate))

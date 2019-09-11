@@ -26,8 +26,9 @@ def choose_reward_by_time():
                 mouse_click(reward_refuse_coordinate['x'], reward_refuse_coordinate['y'] - 86)
                 print("晚上6点以后开始接客啦！")
             else:
+                # 拒绝是点击关闭按钮，而非点X拒绝，这样邀请人无感知，不然秒拒绝会被当作是外挂
                 mouse_click(reward_refuse_coordinate['x'] - 58, reward_refuse_coordinate['y'] - 327)
-                print("有人邀请，立即拒绝，没有犹豫")
+                print("有人邀请，立即点关闭并无视邀请，没有犹豫")
     if identifyImg.identify_find_template_or_not("multi_login.png", 0.8):
         print("重复登陆，终止程序")
         sys.exit()
