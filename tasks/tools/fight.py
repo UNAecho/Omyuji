@@ -122,7 +122,7 @@ def fight(template_filename=None):
             try_count += 1
             print("没发现出去的迹象，继续点击，尝试次数：" + str(try_count))
             mouse_click(random_x, random_y)
-            time.sleep(0.3)
+            time.sleep(0.5)
     return result
 
 

@@ -24,7 +24,7 @@ def switch_on_buffer(type):
         identifyImg.look_for_template_to_click("common_close_button.png", 0.8, 0, 0)
         # 点击加成按钮
         buffer_button_explore_filename = "buffer_button_explore.png"
-        buffer_button_coordinate = identifyImg.identify_find_template_or_not(buffer_button_explore_filename, 0.85)
+        buffer_button_coordinate = identifyImg.identify_find_template_or_not(buffer_button_explore_filename, 0.8)
         if buffer_button_coordinate.__len__() > 0:
             # 如果找到加成灯笼的坐标，点击之后检查觉醒图标是否出现
             mouse_click(buffer_button_coordinate['x'], buffer_button_coordinate['y'])
