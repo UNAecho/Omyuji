@@ -59,8 +59,11 @@ def city_of_sun():
             print("开始外层大循环,缓冲几秒")
             sleep(1)
             print("开始读取每一格坐标")
-            battle_list = identifyImg.multi_template_coordinate("cityofsun.png", 0.9)
+            # 如果有资源选取意愿，先点击御魂资源
+            identifyImg.look_for_template_to_click("lunhuimijing_yuhun_ziyuan.png", 0.85)
+
             # 开始读取每个板块坐标
+            battle_list = identifyImg.multi_template_coordinate("cityofsun.png", 0.9)
             # 逻辑：优先看资源格子、下一层，如果什么都没发现就开始正常翻格子遍历
             # 下面的遍历是以每个板块坐标为单位
             for i in battle_list:
