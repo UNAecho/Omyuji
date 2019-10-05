@@ -44,7 +44,7 @@ def key_input(str):
 # 如果输入了step_count代表此次拖动跨度较大，需要分步挪动鼠标
 def mouse_drag_to_target(x, y, target_x, target_y, step_count=None):
     mouse_move(x, y)
-    print("x=%d,y=%d,tx=%d,ty=%d" %(x,y,target_x,target_y))
+    print("开始拖动，从 x=%d,y=%d,拖到 tx=%d,ty=%d" %(x,y,target_x,target_y))
     if step_count:
         tmp_x = target_x / step_count
         tmp_y = target_y / step_count

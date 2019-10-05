@@ -30,8 +30,8 @@ def find_N_card():
         # 滑块坐标
         x = slider_coordinae['x']
         y = slider_coordinae['y']
-        # 每次小幅度平移64个单位
-        mouse_drag_to_target(x, y, x + 64, y)
+        # 每次小幅度平移32个单位
+        mouse_drag_to_target(x, y, x + 32, y)
         # 直至出现目标才停下
         shikigami_level_coordinate = identifyImg.identify_find_template_or_not("level_1.png", 0.8)
         if shikigami_level_coordinate:

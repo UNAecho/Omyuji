@@ -213,8 +213,8 @@ def check_level_of_hellspawn(omyuji_hwnd_info):
 
 
 def change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_main_2, level_max_flag_of_main_3):
-    # 通过加成按钮来点击更换阵容位置
-    change_battle_array_coordinate = identifyImg.identify_find_template_or_not("buffer_button_explore.png", 0.8)
+    # 通过【预设阵容】按钮来点击更换阵容位置
+    change_battle_array_coordinate = identifyImg.identify_find_template_or_not("preinstall.png", 0.8)
     mouse_click(change_battle_array_coordinate['x'], change_battle_array_coordinate['y'] - 100)
     # 通过聊天频道按钮来定位更换狗粮位置
     chat_button_coordinate = identifyImg.identify_find_template_or_not("common_button_chat.png", 0.8)
@@ -231,18 +231,18 @@ def change_the_level_max_hellspawn(level_max_flag_of_main_1, level_max_flag_of_m
         changed_N_card_coordinate = shikigamiTools.find_N_card()
         if level_max_flag_of_main_1:
             operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
-                                           No1_coordinate['x'], No1_coordinate['y'],3)
+                                           No1_coordinate['x'], No1_coordinate['y'])
             level_max_flag_of_main_1 = False
             print("1号更换完毕"+str(No1_coordinate))
 
         if level_max_flag_of_main_2:
             operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
-                                           No2_coordinate['x'], No2_coordinate['y'],3)
+                                           No2_coordinate['x'], No2_coordinate['y'])
             level_max_flag_of_main_2 = False
             print("2号更换完毕"+str(No2_coordinate))
 
         if level_max_flag_of_main_3:
             operation.mouse_drag_to_target(changed_N_card_coordinate['x'], changed_N_card_coordinate['y'],
-                                           No3_coordinate['x'], No3_coordinate['y'],5)
+                                           No3_coordinate['x'], No3_coordinate['y'])
             level_max_flag_of_main_3 = False
             print("3号更换完毕"+str(No3_coordinate))
