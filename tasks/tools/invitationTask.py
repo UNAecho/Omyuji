@@ -111,7 +111,7 @@ def accept_invite_from_captain(omyuji_hwnd_info):
             # 如果找到默认邀请了，仅点击对号接受邀请
             if identifyImg.look_for_template_for_a_moment_return_boolean("continuous_invited_flag.png", 3, 0.8):
                 mouse_click(xiaohao_invite_coordinate['x'] - 170, xiaohao_invite_coordinate['y'] + 10)
-                print("检测到小号发来的默认邀请，仅点击对号接受本次邀请")
+                print("invitationTask.py:检测到小号发来的默认邀请，仅点击对号接受本次邀请")
                 time.sleep(0.2)
                 break
             # 如果没找到默认邀请的标志，那么就是普通邀请

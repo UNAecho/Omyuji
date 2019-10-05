@@ -259,7 +259,7 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
                 if identifyImg.look_for_template_for_a_moment_return_boolean("continuous_invited_flag.png", 3, 0.85):
                     mouse_click(xiaohao_invite_coordinate['x'] - 170,
                                 xiaohao_invite_coordinate['y'] + 10)
-                    print("检测到小号发来的默认邀请，仅点击对号接受本次邀请")
+                    print("yuhun.py :检测到小号发来的默认邀请，仅点击对号接受本次邀请")
                     time.sleep(0.2)
                     break
                 # 如果没找到默认邀请的标志，那么就是普通邀请
@@ -272,7 +272,7 @@ def battle_statistics_and_command(omyuji_hwnd_info, mission):
         # 打完突破（如果打了）之后，切换小号观察大号是否进来，如是，开始战斗。如不是，重新邀请
         windowTools.switch_window(list(omyuji_hwnd_info.keys())[1])
         time.sleep(0.3)
-        headportrait_of_main_account_filename = "headportrait_of_main_account.png"
+        headportrait_of_main_account_filename = "headportrait_of_main_account_team_interface.png"
         headportrait_of_main_account_coordinate = \
             identifyImg.identify_find_template_or_not(headportrait_of_main_account_filename, 0.85)
         if headportrait_of_main_account_coordinate.__len__() > 0:
