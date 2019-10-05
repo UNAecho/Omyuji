@@ -111,9 +111,11 @@ def foster_execute():
 def back_to_mission(task_type):
     # 挂完卡之后，开始退出界面，方法是不断地点击蓝色退后按钮，直至出现阴阳寮主界面
     while True:
-        identifyImg.wait_for_a_moment_and_click_template("back_button_blue.png", 5, 0.8)
+        identifyImg.wait_for_a_moment_and_click_template("back_button_blue.png", 4, 0.8)
         if identifyImg.identify_find_template_or_not("boundary_button.png", 0.8):
             identifyImg.look_for_template_to_click("common_close_button.png", 0.8)
+            # 添加新版返回按钮的点击
+            identifyImg.look_for_template_to_click("common_back_button_new.png", 0.8)
             break
     if task_type == "yuhun":
         identifyImg.look_for_template_to_click("explore_main_button.png", 0.7)

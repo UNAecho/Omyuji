@@ -22,7 +22,7 @@ def invite_main_account_for_yuhun(omyuji_hwnd_info):
         # 切换小号观察大号是否进来，如是，开始战斗。如不是，重新邀请
         print("切换小号观察大号是否进来，如是，开始战斗。如不是，重新邀请")
         windowTools.switch_window(list(omyuji_hwnd_info.keys())[1])
-        headportrait_of_main_account_filename = "headportrait_of_main_account.png"
+        headportrait_of_main_account_filename = "headportrait_of_main_account_team_interface.png"
         headportrait_of_main_account_coordinate = \
             identifyImg.identify_find_template_or_not(headportrait_of_main_account_filename, 0.85)
         if headportrait_of_main_account_coordinate.__len__() > 0:
@@ -55,9 +55,9 @@ def invite_main_account():
                     random.randint(Coordinate.choose_yuhun_not_yeyuanhuo_y_top, Coordinate.choose_yuhun_not_yeyuanhuo_y_bottom))
         yuhun.start_choose_floor_of_yuhun_to_attack()
     # 点击队友空位栏处的邀请图标邀请他人
-    invite_ico_filename = "invite_ico.png"
-    identifyImg.identify_template_click(invite_ico_filename, template_cv2_entity[invite_ico_filename], 0.85)
-    time.sleep(2)
+    identifyImg.wait_for_a_moment_and_click_template("start_to_invite.png", 3, 0.85)
+    identifyImg.wait_for_a_moment_and_click_template("invite_ico.png", 3, 0.85)
+    time.sleep(1)
     # 开始寻找大号头像并点击邀请
     headportrait_of_main_account_filename = "headportrait_of_main_account.png"
     main_account_coordinate = identifyImg.identify_find_template_or_not(
