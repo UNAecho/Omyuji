@@ -26,13 +26,9 @@ def fight(template_filename=None):
     print("fight()已启动，首先判断上一次操作是否真的进入了战斗，目前的方法是检测左下角自动图标有没有出现")
     # 判断战斗是否真正进入的循环次数，暂时先判断25次，每次1秒
     whether_start_battle_try_count = 0
-    # 判定战斗的模板名称
-    word_auto_filename = "word_auto.png"
     while True:
         if whether_start_battle_try_count < 25:
-            whether_still_fight = identifyImg.identify_find_template_or_not(
-                word_auto_filename, 0.85)
-            if whether_still_fight:
+            if identifyImg.identify_find_template_or_not("word_auto.png", 0.80):
                 # 看到自动图标出现，代表进入了战斗，跳出当前循环开始执行战斗流程
                 break
             else:
@@ -52,10 +48,7 @@ def fight(template_filename=None):
     #     print("没检测到准备按钮，推测阵容锁定，直接进入战斗")
     print("开始进入战斗")
     while True:
-        whether_still_fight = identifyImg.identify_find_template_or_not(
-            word_auto_filename, 0.85)
-
-        if whether_still_fight:
+        if identifyImg.identify_find_template_or_not("word_auto.png", 0.85):
             # 检测为持续战斗就继续等待结束
             time.sleep(2)
         else:

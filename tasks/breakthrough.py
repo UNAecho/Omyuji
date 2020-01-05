@@ -210,23 +210,23 @@ def breakthrough_union(mode):
             attack_count = int(read_attack_remaining)
             if attack_count > 0:
                 if battle_false_count < 2:
-                    # 勋章ico，如果找到了则点击
-                    medal_filename = "medal.png"
+                    # 开始点击勋章，或者空寻找槽位。优先打空勋章槽位，因为好打。
                     try:
-                        identifyImg.identify_template_click(medal_filename, template_cv2_entity[medal_filename], 0.75)
+                        if identifyImg.identify_find_template_or_not("medal-none.png",0.8):
+                            identifyImg.identify_template_click("medal-none.png",template_cv2_entity["medal-none.png"],0.8)
+                        else:
+                            identifyImg.look_for_template_to_click("medal.png", template_cv2_entity["medal.png"], 0.75)
                     except Exception as e:
                         print("error! errormessage is : " + str(e))
                         break
                     time.sleep(1)
                     # 点击勋章之后如果没有弹出进攻，说明已攻破。
                     # 计算失败次数，如果超过3次，那么猜测可能为突破完毕，终止本次突破
-                    attack_button_filename = "attack.png"
-                    whether_battle = identifyImg.identify_find_template_or_not(
-                        attack_button_filename, 0.75)
+                    whether_battle = identifyImg.identify_find_template_or_not("attack.png", 0.8)
                     if whether_battle.__len__() > 0:
                         try:
                             identifyImg.identify_template_click(
-                                attack_button_filename, template_cv2_entity[attack_button_filename], 0.75)
+                                "attack.png", template_cv2_entity["attack.png"], 0.75)
                         except Exception:
                             break
                         battle_result = fight.fight("union_breakthrough_flag.png")
